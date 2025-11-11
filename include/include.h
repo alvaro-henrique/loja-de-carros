@@ -16,5 +16,9 @@
 #include "pessoa.h"
 #include "venda.h"
 #include "vendedor.h"
+#include "menus.h"
+#include "logica_menus.h"
+
 
 #endif
+
