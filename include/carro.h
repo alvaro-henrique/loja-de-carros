@@ -18,7 +18,7 @@ private:
 public:
     // Construtor
     Carro(std::string placa, std::string modelo, std::string cor, std::string marca, int ano, 
-          float precoCompra, float precoVenda, std::string status = "Disponível");
+        float precoCompra, float precoVenda, std::string status = "Disponível");
     
     // Metodos get 
     std::string getPlaca();

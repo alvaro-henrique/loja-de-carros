@@ -83,7 +83,7 @@ public:
         cout << "Caixa: " << formatarReal(caixa) << endl;
         cout << "Total investido em estoque: " << formatarReal(totalInvestido) << endl;
         
-        cout << "Carros disponíveis: " << carrosDisponiveis << "/" << estoque.tamanho() << endl;
+        cout << "Carros disponíveis: " << carrosDisponiveis << endl;
     }
 };
 

@@ -1,9 +1,10 @@
-#ifndef INCLUDES_H
-#define INCLUDES_H
+#ifndef INCLUDE_H
+#define INCLUDE_H
 
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 #include "carro.h"
 #include "cliente.h"

@@ -9,12 +9,14 @@ using namespace std;
 int Venda::proximoId = 1;
 
 int main() {
-    Concessionaria* concessionaria = new Concessionaria("UFCar", "12.345.678/0001-90", 1000000.0f);
+    // atribuir à variável global definida em src/globals.cpp
+    concessionaria = new Concessionaria("UFCar", "12.345.678/0001-90", 1000000.0f);
     
     Endereco* endereco1 = new Endereco("Av. Principal", 123, "Nova Cidade", "Natal", "RN");
     Endereco* endereco2 = new Endereco("Rua das Flores", 456, "Cidade Nova", "Natal", "RN");
     
-    Vendedor* vendedor1 = new Vendedor("84986258589", "José", 20, "11999999999", 
+    // atribuir à variável global vendedor1
+    vendedor1 = new Vendedor("84986258589", "José", 20, "11999999999", 
                                       "jose@ufcar.com", endereco1, 1001, 2500.0f, 0.05f);
     
     Cliente* cliente1 = new Cliente("84992233344", "Matheus", 40, "11888888888", 

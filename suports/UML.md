@@ -1,100 +1,116 @@
 ```mermaid
 classDiagram
-    Pessoa <|-- Funcionario
-    Pessoa <|-- Cliente
-    Funcionario <|-- Gerencia
-    Funcionario <|-- Vendedor
-    Gerencia <|-- RH
-    Gerencia <|-- Financeiro
-    Gerencia <|-- GerenteGeral
-
-    Pessoa "1" -- "1.." Endereco : possui
-
-    Venda "1" -- "1" Cliente : "comprado por"
-    Venda "1" -- "1" Vendedor : "realizado por"
-    Venda "1" -- "1..*" Carro : "inclui (venda)"
-    Venda "1" -- "0..1" Carro : "usa como entrada (troca)"
-
+direction TB
     class Pessoa {
-        String CPF
-        String nome
-        int idade
-        String genero
-        String telefone
-        String email
-        atualizarTelefone(String telefone) void
-        atualizarEmail(String email) void
-    }
-
-    class Endereco {
-        String CEP
-        String rua
-        int numero
-        String bairro
-        String cidade
-        String estado
+	    -string CPF
+	    -string nome
+	    -int idade
+	    -string telefone
+	    -string email
+	    -Endereco* endereco
+	    +validarCPF(string) bool
+	    +exibirInformacoes() void
+	    +setters/getters()
     }
 
     class Funcionario {
-        int cFuncionario
-        Date dataContratacao
-        float salario
-        String cargo
-        calcularSalarioTotal() float
+	    -int codigo
+	    -float salario
+	    -string dataContratacao
+	    +calcularSalario() float
+	    +exibirInformacoes() void
+	    +setters/getters()
     }
 
     class Cliente {
-        float credito
-        List<Venda> historicoCompras
-        consultarCredito() float
-        adicionarHistorico(Venda venda)
-    }
-
-    class Gerencia {
-        String departamento
-        aprovarDespesa(float valor)
-        gerarRelatorioEquipe()
-    }
-
-    class RH {
-        recrutar(Pessoa candidato) Funcionario
-        demitir(Funcionario func)
-        promover(Funcionario func, String novoCargo, float novoSalario)
-    }
-
-    class GerenteGeral {
-        definirMetas()
-    }
-
-    class Financeiro {
-        processarPagamento(Venda venda)
-        gerarBalancoMensal()
+	    -vector~Venda*~ historicoCompras
+	    +adicionarVenda(Venda*) void
+	    +getTotalCompras() int
+	    +exibirInformacoes() void
     }
 
     class Vendedor {
-        float comissao
-        registrarVenda(Cliente cliente, List<Carro> veiculos) Venda
-        calcularComissao(Venda venda) float
-    }
-
-    class Carro {
-        String chassi
-        String placa
-        String modelo
-        String cor
-        String marca
-        int ano
-        float precoVenda
-        String status
-        consultarDisponibilidade() bool
+	    -float comissao
+	    +calcularComissao(float) float
+	    +exibirInformacoes() void
     }
 
     class Venda {
-        int idVenda
-        Date dataVenda
-        float valorTotal
-        String metodoPagamento
-        calcularValorTotal(List<Carro> carrosVendidos, Carro carroEntrada) float
-        finalizarVenda()
+	    -static int proximoId
+	    -int id
+	    -string data
+	    -float valorTotal
+	    -string metodoPagamento
+	    -Cliente* cliente
+	    -Vendedor* vendedor
+	    -vector~Carro*~ carros
+	    +finalizarVenda() void
+	    +calcularValorTotal() void
+	    +exibirVenda() void
     }
+
+    class Carro {
+	    -string placa
+	    -string modelo
+	    -string cor
+	    -string marca
+	    -int ano
+	    -float precoCompra
+	    -float precoVenda
+	    -string status
+	    +estaDisponivel() bool
+	    +vender() void
+	    +comprar() void
+	    +calcularLucro() float
+	    +exibirCarro() void
+    }
+
+    class Concessionaria {
+	    -string nome
+	    -string cnpj
+	    -float caixa
+	    -CRUD~Carro~ estoque
+	    +comprarCarro(Carro*) void
+	    +venderCarro(int) void
+	    +exibirEstoque() void
+	    +exibirBalanco() void
+    }
+
+    class Endereco {
+	    -string rua
+	    -int numero
+	    -string bairro
+	    -string cidade
+	    -string estado
+	    +exibirEndereco() void
+    }
+
+    class CRUD~T~ {
+	    -vector~T*~ registros
+	    +criar(T*) void
+	    +ler(int) T*
+	    +atualizar(int, T*) void
+	    +remover(int) void
+	    +exibirTodos() void
+    }
+
+    class ExcecaoCustomizada {
+	    +ExcecaoCustomizada(string)
+    }
+
+    Pessoa <|-- Funcionario
+    Pessoa <|-- Cliente
+    Funcionario <|-- Vendedor
+    Cliente "1" --> "*" Venda : histórico
+    Vendedor "1" --> "*" Venda : realiza
+    Venda "" --> "" Carro : contém
+    Concessionaria "1" --> "*" Carro : gerencia
+    Pessoa --> Endereco : tem
+    Concessionaria ..> CRUD
+    Venda ..> Cliente
+    Venda ..> Vendedor
+    Venda ..> Carro
+    Pessoa ..> ExcecaoCustomizada
+    Carro ..> ExcecaoCustomizada
+    Funcionario ..> ExcecaoCustomizada
 ```

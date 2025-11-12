@@ -57,7 +57,7 @@ while (true) {
                 cin.ignore();
                 
                 try {
-                    Carro* novoCarro = new Carro(placa, modelo, cor, marca, ano, precoCompra, precoVenda);
+                    Carro* novoCarro = new Carro(placa, modelo, cor, marca, ano, precoCompra, precoVenda );
                     concessionaria->comprarCarro(novoCarro);
                     cout << "Carro comprado com sucesso!" << endl;
                 } catch (ExcecaoCustomizada& e) {
@@ -431,9 +431,6 @@ void gerenciarVendas() {
                     float comissaoValor = vendedor1->calcularComissao(venda->getValorTotal());
                     cout << "Comissão do vendedor: R$ " << comissaoValor << endl;
                     
-                    for (int index : indicesEstoque) {
-                        concessionaria->venderCarro(index);
-                    }
                     
                     crudVendas.criar(venda);
                     cout << "Venda concluída com sucesso!" << endl;
@@ -441,6 +438,11 @@ void gerenciarVendas() {
                 } catch (ExcecaoCustomizada& e) {
                     cout << "Erro na venda: " << e.what() << endl;
                 }
+
+                /* for (int index : indicesEstoque) {
+                        concessionaria->venderCarro(index);
+                    } */
+
                 break;
             }
             case 2:
@@ -456,12 +458,28 @@ void gerenciarVendas() {
     } while (opcaoVendas != 3);
 }
 
-void gerenciarRelatorios() {
-    cout << "\n--- RELATÓRIOS ---" << endl;
-    concessionaria->exibirBalanco();
-    cout << "\n--- RESUMO ---" << endl;
-    cout << "Total de clientes: " << crudClientes.tamanho() << endl;
-    cout << "Total de funcionários: " << crudFuncionarios.tamanho() << endl;
-    cout << "Total de vendas: " << crudVendas.tamanho() << endl;
-    cout << "Carros em estoque: " << concessionaria->getTamanhoEstoque() << endl;
+ void gerenciarRelatorios() {
+    int opcaoRelatorio;
+    do {
+        
+        cout << "\n--- RELATÓRIOS ---" << endl;
+        concessionaria->exibirBalanco();
+        cout << "\n--- RESUMO ---" << endl;
+        cout << "Total de clientes: " << crudClientes.tamanho() << endl;
+        cout << "Total de funcionários: " << crudFuncionarios.tamanho() << endl;
+        cout << "Total de vendas: " << crudVendas.tamanho() << endl;
+        cout << "Carros em estoque: " << concessionaria->getTamanhoEstoque() << endl;
+        
+        // Adicione uma opção para voltar ao menu principal
+        cout << "\nDigite 0 para voltar ao menu principal: ";
+        cin >> opcaoRelatorio;
+        cin.ignore();
+
+        if (opcaoRelatorio != 0) {
+            cout << "Opção inválida!" << endl;
+        }
+
+    } while (opcaoRelatorio != 0);
+    
+    cout << "Voltando ao menu principal..." << endl;
 }
