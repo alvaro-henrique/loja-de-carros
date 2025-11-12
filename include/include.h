@@ -18,6 +18,7 @@
 #include "vendedor.h"
 #include "menus.h"
 #include "logica_menus.h"
+#include "globals.h"
 
 
 #endif

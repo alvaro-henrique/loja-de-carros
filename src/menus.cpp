@@ -35,6 +35,16 @@ void menuClientes() {
     cout << "Escolha uma opção: ";
 }
 
+void menuFuncionarios() {
+    cout << "\n===== MENU DE FUNCIONÁRIOS =====\n";
+    cout << "1. Adicionar funcionário\n";
+    cout << "2. Listar funcionários\n";
+    cout << "3. Atualizar funcionário\n";
+    cout << "4. Remover funcionário\n";
+    cout << "0. Sair\n";
+    cout << "Escolha uma opção: ";
+}
+
 void menuVendas() {
     cout << "\n=== REALIZAR VENDA ===" << endl;
     cout << "1. Nova Venda" << endl;

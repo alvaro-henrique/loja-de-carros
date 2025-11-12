@@ -11,10 +11,6 @@ int Venda::proximoId = 1;
 int main() {
     Concessionaria* concessionaria = new Concessionaria("UFCar", "12.345.678/0001-90", 1000000.0f);
     
-    CRUD<Cliente> crudClientes;
-    CRUD<Funcionario> crudFuncionarios;
-    CRUD<Venda> crudVendas;
-    
     Endereco* endereco1 = new Endereco("Av. Principal", 123, "Nova Cidade", "Natal", "RN");
     Endereco* endereco2 = new Endereco("Rua das Flores", 456, "Cidade Nova", "Natal", "RN");
     

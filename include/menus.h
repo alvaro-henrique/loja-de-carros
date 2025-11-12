@@ -10,7 +10,8 @@
 
 void menuPrincipal();
 void menuEstoque();
-void menuClientes(); 
+void menuClientes();
+void menuFuncionarios();
 void menuVendas();
 
 #endif
