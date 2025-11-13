@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "../include/include.h"
+#include "include.h"
 
 using namespace std;
 
@@ -29,48 +29,34 @@ int main() {
     
     do {
         menuPrincipal();
+        cin >> opcao;
+        cin.ignore();
         
-        try {
-            cin >> opcao;
-            cin.ignore();
-
-            // Se a leitura falhar, lança exceção
-            if (cin.fail()) {
-                throw runtime_error("Entrada inválida! Digite apenas números de 1 a 6.");
-            }
-            
-            switch (opcao) {
-                case 1:
-                    gerenciarEstoque(concessionaria);
-                    break;
-                case 2:
-                    gerenciarClientes();
-                    break;
-                case 3:
-                    gerenciarFuncionarios();
-                    break;
-                case 4:
-                    gerenciarVendas();
-                    break;
-                case 5:
-                    gerenciarRelatorios();
-                    break;
-                case 6:
-                    cout << "Saindo do sistema..." << endl;
-                    cout << "=================" << endl;
-                    break;
-                default:
-                    throw runtime_error("Opção inválida! Digite um número entre 1 e 6.");
-            }
-            
-        } catch (const exception& e) {
-            cout << e.what() << endl;
-            
-            // Limpa o estado de erro e o buffer
-            cin.clear();
-            cin.get();
-        }
-        
-    } while (opcao != 6);
+        switch (opcao) {
+            case 1:
+                gerenciarEstoque(concessionaria);
+                break;
+            case 2:
+                gerenciarClientes();
+                break;
+            case 3:
+                gerenciarFuncionarios();
+                break;
+            case 4:
+                gerenciarVendas();
+                break;
+            case 5:
+                gerenciarRelatorios();
+                break;
+            case 6:
+                cout << "Saindo do sistema..." << endl;
+                cout << "=================" << endl;
+                break;
+            default:
+                cout << "Opção inválida!" << endl;
+                break;
+            }   
+    }   while (opcao != 6);
+    delete concessionaria;
     return 0;
 }

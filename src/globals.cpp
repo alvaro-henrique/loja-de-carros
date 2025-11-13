@@ -1,4 +1,4 @@
-#include "../include/globals.h"
+#include "globals.h"
 
 // Definições (sem extern) — uma única vez no projeto
 CRUD<Cliente> crudClientes;

@@ -2,11 +2,12 @@
 #include <vector>
 #include <string>
 
-#include "../include/menus.h"
+#include "menus.h"
 using namespace std;
 
 
 void menuPrincipal() {
+    system("clear");
     cout << "\n=== SISTEMA CONCESSIONÁRIA ===" << endl;
     cout << "1. Gerenciar Estoque" << endl;
     cout << "2. Gerenciar Clientes" << endl;

@@ -1,14 +1,4 @@
-#ifndef EXCECOES_H
-#define EXCECOES_H
+#include "excecoes.h"
 
-#include <stdexcept>
-#include <string>
-
-using namespace std;
-
-class ExcecaoCustomizada : public runtime_error {
-public:
-    ExcecaoCustomizada(const string& mensagem) : runtime_error(mensagem) {}
-};
-
-#endif
+// O construtor e outros métodos já estão definidos no header.
+// Se houvesse métodos para implementar, eles estariam aqui.

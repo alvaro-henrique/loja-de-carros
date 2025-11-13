@@ -5,7 +5,7 @@ TARGET = concessionaria
 CXX = g++
 
 # Opções de compilação
-CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic -Iinclude -Iheader
+CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic -Iheader
 
 # Diretórios
 SRC_DIR = src

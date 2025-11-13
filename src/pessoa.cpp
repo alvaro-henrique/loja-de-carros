@@ -44,7 +44,10 @@ void Pessoa::setIdade(int idade) {
 
 void Pessoa::setTelefone(string telefone) { this->telefone = telefone; }
 void Pessoa::setEmail(string email) { this->email = email; }
-void Pessoa::setEndereco(Endereco* endereco) { this->endereco = endereco; }
+void Pessoa::setEndereco(Endereco* endereco) { 
+    delete this->endereco;
+    this->endereco = endereco; 
+}
 
 // Método Virtual
 void Pessoa::exibirInformacoes() {
