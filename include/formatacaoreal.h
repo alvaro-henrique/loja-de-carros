@@ -7,19 +7,19 @@
 
 using namespace std;
 
-// --- FUNÇÃO AUXILIAR PARA FORMATAR MOEDA (VERSÃO CORRIGIDA) ---
+// Formata valor float para ficar em real (R$)
 inline string formatarReal(float valor) {
     stringstream ss;
     ss << fixed << setprecision(2) << valor;
     string s = ss.str();
 
-    // 1. Encontrar o ponto decimal
+    // 1. Encontra o ponto decimal
     size_t posDecimal = s.find('.');
     if (posDecimal == string::npos) { 
         return "R$ " + s;
     }
 
-    // 2. Substituir o ponto decimal por vírgula (FAZER ISSO PRIMEIRO)
+    // 2. Substitui o ponto decimal por vírgula
     s.replace(posDecimal, 1, ",");
 
     // 3. Adicionar separadores de milhar (o '.')

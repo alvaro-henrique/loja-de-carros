@@ -7,6 +7,7 @@
 #define MENU_H
 
 
+// Declarações de funções para os menus de interface do usuário
 
 void menuPrincipal();
 void menuEstoque();

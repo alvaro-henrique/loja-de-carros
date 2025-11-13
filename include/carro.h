@@ -4,6 +4,7 @@
 #include <string>
 #include "excecoes.h" 
 
+// Classe que representa um carro no sistema
 class Carro {
 private:
     std::string placa;
@@ -11,8 +12,8 @@ private:
     std::string cor;
     std::string marca;
     int ano;
-    float precoCompra;  
-    float precoVenda;   
+    float precoCompra;
+    float precoVenda;
     std::string status;
 
 public:
@@ -20,7 +21,7 @@ public:
     Carro(std::string placa, std::string modelo, std::string cor, std::string marca, int ano, 
         float precoCompra, float precoVenda, std::string status = "Disponível");
     
-    // Metodos get 
+    // Métodos de acesso
     std::string getPlaca();
     std::string getModelo();
     std::string getCor();
@@ -30,7 +31,7 @@ public:
     float getPrecoVenda();
     std::string getStatus();
     
-    // Metodos set
+    // Métodos de modificação
     void setPlaca(std::string placa);
     void setModelo(std::string modelo);
     void setCor(std::string cor);
@@ -40,7 +41,7 @@ public:
     void setPrecoVenda(float precoVenda);
     void setStatus(std::string status);
     
-    // Outros metodos
+    // Métodos de negócio
     bool estaDisponivel();
     void vender();
     void comprar();

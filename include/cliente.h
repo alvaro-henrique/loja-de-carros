@@ -5,8 +5,9 @@
 #include <vector>
 #include <string>
 
-class Venda; 
+class Venda;
 
+// Cliente da concessionária - herda de Pessoa
 class Cliente : public Pessoa {
 private:
     std::vector<Venda*> historicoCompras;
@@ -16,11 +17,11 @@ public:
     Cliente(std::string CPF, std::string nome, int idade, std::string telefone, 
             std::string email, Endereco* endereco);
     
-    // Getters
+    // Métodos de acesso
     std::vector<Venda*> getHistoricoCompras();
     int getTotalCompras();
     
-    // Outros Métodos
+    // Adiciona venda ao histórico
     void adicionarVenda(Venda* venda);
     
     void exibirInformacoes() override;

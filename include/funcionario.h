@@ -4,7 +4,7 @@
 #include "pessoa.h"
 #include <string>
 
-
+// Funcionário da concessionária - herda de Pessoa
 class Funcionario : public Pessoa {
 protected:
     // Atributos
@@ -26,7 +26,7 @@ public:
     void setCodigo(int codigo);
     void setSalario(float salario);
     
-    // virtuais
+    // Métodos virtuais
     virtual float calcularSalario();
     void exibirInformacoes() override;
 };

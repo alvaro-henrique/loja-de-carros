@@ -1,11 +1,13 @@
 #ifndef INCLUDE_H
 #define INCLUDE_H
 
+// Inclusões padrão da STL
 #include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>
 
+// Inclusões de cabeçalhos próprios do sistema
 #include "carro.h"
 #include "cliente.h"
 #include "concessionaria.h"

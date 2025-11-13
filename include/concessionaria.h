@@ -5,10 +5,11 @@
 #include "crud.h"
 #include <vector>
 #include <iostream>
-#include "formatacaoreal.h" // <-- INCLUI A FUNÇÃO DE FORMATAR
+#include "formatacaoreal.h"
 
 using namespace std;
 
+// Classe principal da concessionária - gerencia todo o negócio
 class Concessionaria {
 private:
     string nome;
@@ -20,21 +21,22 @@ public:
     Concessionaria(string nome, string cnpj, float caixaInicial)
         : nome(nome), cnpj(cnpj), caixa(caixaInicial) {}
     
-    string getNome() { return nome; }
+    string getNome() { return nome; }     // Métodos básicos
     string getCNPJ() { return cnpj; }
     float getCaixa() { return caixa; }
     
+    // Compra um carro para o estoque
     void comprarCarro(Carro* carro) {
         if (caixa >= carro->getPrecoCompra()) {
             estoque.criar(carro);
             caixa -= carro->getPrecoCompra();
             carro->comprar();
-            // (A mensagem de "sucesso" foi movida para o main.cpp)
         } else {
             throw ExcecaoCustomizada("Caixa insuficiente para comprar o carro!");
         }
     }
-    
+
+    // Vende um carro do estoque
     void venderCarro(int indexEstoque) {
         Carro* carro = estoque.ler(indexEstoque);
         if (carro->estaDisponivel()) {
@@ -46,7 +48,8 @@ public:
             throw ExcecaoCustomizada("Carro não está disponível para venda!");
         }
     }
-    
+
+    // Acesso ao estoque
     Carro* getCarroEstoque(int index) {
         return estoque.ler(index);
     }
@@ -54,7 +57,8 @@ public:
     int getTamanhoEstoque() {
         return estoque.tamanho();
     }
-    
+
+    // Exibe todo o estoque
     void exibirEstoque() {
         cout << "=== ESTOQUE DA CONCESSIONÁRIA ===" << endl;
         cout << "Nome: " << nome << " | CNPJ: " << cnpj << " | Caixa: " << formatarReal(caixa) << endl;
@@ -65,7 +69,7 @@ public:
         }
     }
     
-    // --- MÉTODO ATUALIZADO ---
+    // Mostra balanço financeiro
     void exibirBalanco() {
         float totalInvestido = 0;
         int carrosDisponiveis = 0;

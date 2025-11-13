@@ -6,6 +6,9 @@
 
 using namespace std;
 
+/* Representa um endereço completo
+Utilizado por Pessoa, Cliente e Funcionario para armazenar informações de localização.
+*/
 class Endereco {
 private:
     string rua;
@@ -15,6 +18,8 @@ private:
     string estado;
 
 public:
+
+    //Registra as informações necessárias para se cadastrar um endereço.
     Endereco(string rua, int numero, string bairro, string cidade, string estado)
         : rua(rua), numero(numero), bairro(bairro), cidade(cidade), estado(estado) {}
     
@@ -30,6 +35,8 @@ public:
     void setCidade(string cidade) { this->cidade = cidade; }
     void setEstado(string estado) { this->estado = estado; }
     
+
+    //Exibe o endereço no formato: "Rua, número - Bairro, Cidade - Estado"
     void exibirEndereco() {
         cout << rua << ", " << numero << " - " << bairro << ", " << cidade << " - " << estado;
     }

@@ -13,6 +13,7 @@ class Cliente;
 class Vendedor;
 class Carro;
 
+// Representa uma venda na concessionária
 class Venda {
 private:
     static int proximoId;
@@ -25,6 +26,7 @@ private:
     vector<Carro*> carros;
 
 public:
+    // Construtor - gera data automaticamente
     Venda(Cliente* cliente, Vendedor* vendedor, vector<Carro*> carros, string metodoPagamento)
         : cliente(cliente), vendedor(vendedor), carros(carros), metodoPagamento(metodoPagamento) {
         id = proximoId++;
@@ -37,6 +39,7 @@ public:
         calcularValorTotal();
     }
     
+    // Getters
     int getId() { return id; }
     string getData() { return data; }
     float getValorTotal() { return valorTotal; }
@@ -45,10 +48,12 @@ public:
     Vendedor* getVendedor() { return vendedor; }
     vector<Carro*> getCarros() { return carros; }
     
+    // Setters
     void setMetodoPagamento(string metodoPagamento) {
         this->metodoPagamento = metodoPagamento;
     }
     
+    // Calcula valor total da venda
     void calcularValorTotal() {
         valorTotal = 0.0f;
         for (Carro* carro : carros) {
@@ -56,7 +61,7 @@ public:
         }
     }
     
-    // Método simplificado - sem Concessionaria
+    // Finaliza a venda (marca carros como vendidos)
     void finalizarVenda() {
         for (Carro* carro : carros) {
             carro->vender();
@@ -64,6 +69,7 @@ public:
         cout << "Venda finalizada! Valor total: R$ " << valorTotal << endl;
     }
     
+    // Exibe informações da venda
     void exibirVenda() {
         cout << "Venda ID: " << id << "\nData: " << data
              << "\nValor Total: R$ " << valorTotal
