@@ -13,7 +13,7 @@ private:
 
 public:
     Vendedor(string CPF, string nome, int idade, string telefone, string email, 
-             Endereco* endereco, int codigo, float salario, float comissao = 0.05, string tema = "white", string nomeExibicao = "Vendendor")
+             Endereco* endereco, int codigo, float salario, float comissao = 0.05, string tema = "claro", string nomeExibicao = "Vendendor")
         : Funcionario(CPF, nome, idade, telefone, email, endereco, codigo, salario, tema, nomeExibicao), 
           comissao(comissao) {}
     
