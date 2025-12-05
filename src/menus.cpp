@@ -14,7 +14,8 @@ void menuPrincipal() {
     cout << "3. Gerenciar Funcionários" << endl;
     cout << "4. Realizar Venda" << endl;
     cout << "5. Ver Relatórios" << endl;
-    cout << "6. Sair" << endl;
+    cout << "6. Preferências do Usuário" << endl;
+    cout << "7. Sair" << endl;
     cout << "Escolha uma opção: ";
 }
 
@@ -53,6 +54,15 @@ void menuVendas() {
     cout << "3. Voltar" << endl;
     cout << "Escolha uma opção: ";
 }
+
+void menuPreferenciaUsuario() {
+    cout << "\n ==== PREFERENCIAS DO USUARIO ====" << endl;
+    cout << "1. Listar Preferencias" << endl;
+    cout << "2. Alterar Tema" << endl;
+    cout << "3. Altera Nome de Exibicao" << endl;
+    cout << "4. Menu de Inicio" << endl;
+}
+
 
 
 

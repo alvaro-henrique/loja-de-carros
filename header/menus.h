@@ -13,5 +13,6 @@ void menuEstoque();
 void menuClientes();
 void menuFuncionarios();
 void menuVendas();
+void menuPreferenciaUsuario();
 
 #endif

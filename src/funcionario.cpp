@@ -7,8 +7,9 @@
 using namespace std;
 
     Funcionario::Funcionario(string CPF, string nome, int idade, string telefone, string email, 
-                Endereco* endereco, int codigo, float salario)
-        : Pessoa(CPF, nome, idade, telefone, email, endereco), codigo(codigo), salario(salario) {
+                Endereco* endereco, int codigo, float salario, string tema, string nomeExibicao)
+        : Pessoa(CPF, nome, idade, telefone, email, endereco), codigo(codigo), salario(salario),
+        tema(tema), nomeExibicao(nomeExibicao) {
         // Data atual simples
         time_t now = time(0);
         tm* data = localtime(&now);
@@ -21,6 +22,8 @@ using namespace std;
     int Funcionario::getCodigo() { return codigo; }
     string Funcionario::getDataContratacao() { return dataContratacao; }
     float Funcionario::getSalario() { return salario; }
+    string Funcionario::getTema() { return tema; }                    
+    string Funcionario::getNomeExibicao() { return nomeExibicao; }    
     
     // Setters
     void Funcionario::setCodigo(int codigo) { this->codigo = codigo; }
@@ -28,6 +31,14 @@ using namespace std;
     void Funcionario::setSalario(float salario) { 
         if (salario < 0) throw ExcecaoCustomizada("Salário não pode ser negativo!");
         this->salario = salario; 
+    }
+
+    void Funcionario::setTema(string tema) {     
+        this->tema = tema;
+    }
+
+    void Funcionario::setNomeExibicao(string nomeExibicao) {  
+        this->nomeExibicao = nomeExibicao;
     }
     
     float Funcionario::calcularSalario() {
@@ -38,5 +49,7 @@ using namespace std;
     void Funcionario::exibirInformacoes() {
         Pessoa::exibirInformacoes();
         cout << "\nCódigo: " << codigo << "\nSalário: R$ " << salario
-             << "\nData de Contratação: " << dataContratacao;
+             << "\nData de Contratação: " << dataContratacao
+             << "\nTema: " << tema          
+            << "\nNome de Exibição: " << nomeExibicao; 
     }

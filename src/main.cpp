@@ -17,7 +17,7 @@ int main() {
     
     // atribuir à variável global vendedor1
     vendedor1 = new Vendedor("84986258589", "José", 20, "11999999999", 
-                                      "jose@ufcar.com", endereco1, 1001, 2500.0f, 0.05f);
+                                      "jose@ufcar.com", endereco1, 1001, 2500.0f, 0.05f, "black");
     
     Cliente* cliente1 = new Cliente("84992233344", "Matheus", 40, "11888888888", 
                                    "matheus@gmail.com", endereco2);
@@ -49,6 +49,8 @@ int main() {
                 gerenciarRelatorios();
                 break;
             case 6:
+                gerenciarPreferenciaUsuario();
+            case 7:
                 cout << "Saindo do sistema..." << endl;
                 cout << "=================" << endl;
                 break;
@@ -56,7 +58,7 @@ int main() {
                 cout << "Opção inválida!" << endl;
                 break;
             }   
-    }   while (opcao != 6);
+    }   while (opcao != 7);
     delete concessionaria;
     return 0;
 }

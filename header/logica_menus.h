@@ -11,5 +11,6 @@ void gerenciarClientes();
 void gerenciarFuncionarios();
 void gerenciarVendas();
 void gerenciarRelatorios();
+void gerenciarPreferenciaUsuario();
 
 #endif

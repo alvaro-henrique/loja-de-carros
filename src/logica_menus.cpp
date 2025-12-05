@@ -392,7 +392,7 @@ void gerenciarFuncionarios() {
             switch (opcaoFuncionarios) {
                 case 1: {
                     // Cadastrar funcionário
-                    string cpf, nome, telefone, email, rua, bairro, cidade, estado;
+                    string cpf, nome, telefone, email, rua, bairro, cidade, estado, tema, nomeExibicao;
                     int idade, numero, codigo;
                     float salario;
 
@@ -401,13 +401,21 @@ void gerenciarFuncionarios() {
                     getline(cin, cpf);
                     cout << "Nome: ";
                     getline(cin, nome);
+
+                    cout << "Nome de Exibição (opcional, Enter para pular): ";
+                    getline(cin, nomeExibicao);
+
                     cout << "Idade: ";
                     cin >> idade;
                     cin.ignore();
+
                     cout << "Telefone: ";
                     getline(cin, telefone);
                     cout << "Email: ";
                     getline(cin, email);
+
+                    cout << "Tema (opcional, Enter para pular): ";
+                    getline(cin, tema);
 
                     cout << "\n--- ENDEREÇO ---" << endl;
                     cout << "Rua: ";
@@ -430,7 +438,32 @@ void gerenciarFuncionarios() {
 
                     try {
                         Endereco* endereco = new Endereco(rua, numero, bairro, cidade, estado);
-                        Funcionario* novo = new Funcionario(cpf, nome, idade, telefone, email, endereco, codigo, salario);
+                        Funcionario* novo = nullptr;
+            
+                        // DIFERENÇA AQUI: Verifica se os campos estão vazios
+                        if (tema.empty() && nomeExibicao.empty()) {
+                            // Se ambos vazios, usa construtor sem os últimos parâmetros
+                            novo = new Funcionario(cpf, nome, idade, telefone, email, 
+                                                endereco, codigo, salario);
+                        } 
+                        else if (tema.empty()) {
+                            // Só nomeExibicao foi preenchido
+                            novo = new Funcionario(cpf, nome, idade, telefone, email, 
+                                                endereco, codigo, salario,
+                                                "", nomeExibicao);  // Tema vazio, nomeExibicao preenchido
+                        }
+                        else if (nomeExibicao.empty()) {
+                            // Só tema foi preenchido
+                            novo = new Funcionario(cpf, nome, idade, telefone, email, 
+                                                endereco, codigo, salario,
+                                                tema, "");  // Tema preenchido, nomeExibicao vazio
+                        }
+                        else {
+                            // Ambos preenchidos
+                            novo = new Funcionario(cpf, nome, idade, telefone, email, 
+                                                endereco, codigo, salario,
+                                                tema, nomeExibicao);
+                        }
                         crudFuncionarios.criar(novo);
                         cout << "Funcionário cadastrado com sucesso!" << endl;
                     } catch (ExcecaoCustomizada& e) {
@@ -477,7 +510,7 @@ void gerenciarFuncionarios() {
                     }
 
                     // Ler novos dados
-                    string cpf, nome, telefone, email, rua, bairro, cidade, estado;
+                    string cpf, nome, telefone, email, rua, bairro, cidade, estado, tema, nomeExibicao;
                     int idade, numero, codigo;
                     float salario;
 
@@ -726,4 +759,58 @@ void gerenciarRelatorios() {
     } while (opcaoRelatorio != 0);
     
     cout << "Voltando ao menu principal..." << endl;
+}
+
+void gerenciarPreferenciaUsuario() {
+    int opcaoPreferencias;
+
+    do {
+        menuPreferenciaUsuario();
+        try {
+            cin >> opcaoPreferencias;
+            cin.ignore();
+
+            // Se a leitura falhar, lança exceção
+            if (cin.fail()) {
+                throw runtime_error("Entrada inválida! Digite apenas números de 1 a 4.");
+            }
+
+            switch (opcaoPreferencias) {
+                case 1: {
+                    // Listar preferencias
+                    //Ler csv funcionarios e listar cada funcionario e seu tema e nome de exibicao
+                    cout << "listando preferencias..." << endl;
+                    break;
+                }
+                case 2: {
+                    // alterar tema 
+                    // logica escolher black ou white
+                    // gravar escolha no csv
+                    cout << "listando tema..." << endl;
+
+                    break;
+                }
+                case 3: {
+                    // alterar nome exibicao
+                    // logica recolher nome e gravar no csv
+                    cout << "listando nome..." << endl;
+
+                    break;
+                }
+                case 4:
+                    cout << "Voltando ao menu principal..." << endl;
+                    break;
+                default:
+                    throw runtime_error("Opção inválida! Digite um número entre 1 e 4.");
+            }
+            
+        } catch (const exception& e) {
+            cout << "Erro: " << e.what() << endl;
+            
+            // Limpa o estado de erro e o buffer
+            cin.clear();
+            cin.get();
+        }
+
+    } while (opcaoPreferencias != 4);
 }
