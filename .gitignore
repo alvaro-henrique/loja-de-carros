@@ -8,6 +8,7 @@
 obj/
 bin/
 build/
+database/
 
 # Executável
 concessionaria

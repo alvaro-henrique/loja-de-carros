@@ -9,20 +9,33 @@ using namespace std;
 int Venda::proximoId = 1;
 
 int main() {
-    // atribuir à variável global definida em src/globals.cpp
-    concessionaria = new Concessionaria("UFCar", "12.345.678/0001-90", 1000000.0f);
+
+    ExportarDataBase::verificarPastaDatabase();
+
+    ExportarDataBase::importarFuncionariosCSV(crudFuncionarios);
+    ExportarDataBase::importarConcessionariaCSV(concessionaria, crudFuncionarios);
+
+    cout << "Avendedor1: " << vendedor1 << endl;
+
+    if (concessionaria == nullptr) {
+        cout << "Criando nova concessionária..." << endl;
+        concessionaria = new Concessionaria("UFCar", "12.345.678/0001-90", 1000000.0f);
+    }
+
+    if (vendedor1 == nullptr) {
+        Endereco* endereco1 = new Endereco("Av. Principal", 123, "Nova Cidade", "Natal", "RN");
+        vendedor1 = new Vendedor("84986258589", "José Francisco", 20, "11999999999", 
+                                "jose@ufcar.com", endereco1, 1001, 2500.0f, 0.05f, "escuro");    
+        
+        crudFuncionarios.criar(vendedor1);
+    }
+
+    cout << "Dvendedor1: " << vendedor1 << endl;
     
-    Endereco* endereco1 = new Endereco("Av. Principal", 123, "Nova Cidade", "Natal", "RN");
     Endereco* endereco2 = new Endereco("Rua das Flores", 456, "Cidade Nova", "Natal", "RN");
-    
-    // atribuir à variável global vendedor1
-    vendedor1 = new Vendedor("84986258589", "José", 20, "11999999999", 
-                                      "jose@ufcar.com", endereco1, 1001, 2500.0f, 0.05f, "escuro");
-    
     Cliente* cliente1 = new Cliente("84992233344", "Matheus", 40, "11888888888", 
                                    "matheus@gmail.com", endereco2);
     
-    crudFuncionarios.criar(vendedor1);
     crudClientes.criar(cliente1);
     
     int opcao;
@@ -51,6 +64,10 @@ int main() {
             case 6:
                 gerenciarPreferenciaUsuario();
             case 7:
+                cout << "Exportando dados para fechar o sistema..." << endl;
+
+                ExportarDataBase::exportarFuncionariosCSV(crudFuncionarios);
+                ExportarDataBase::exportarConcessionariaCSV(concessionaria);
                 cout << "Saindo do sistema..." << endl;
                 cout << "=================" << endl;
                 break;

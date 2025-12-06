@@ -20,6 +20,8 @@
 #include "menus.h"
 #include "logica_menus.h"
 #include "globals.h"
+#include "database.h"
+#include <sys/stat.h>
 
 
 #endif
