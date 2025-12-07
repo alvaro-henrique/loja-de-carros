@@ -49,7 +49,7 @@ void iniciarInterface() {
     while (true) {
         limparTela();
         cout << "===========================================\n";
-        cout << "              INTERFACE - LOGIN\n";
+        cout << "              LOGIN - UFCar\n";
         cout << "===========================================\n\n";
         cout << "1 - Entrar com usuário existente\n";
         cout << "2 - Criar novo usuário\n";
