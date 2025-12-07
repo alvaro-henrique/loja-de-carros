@@ -3,11 +3,13 @@
 #include <string>
 
 #include "menus.h"
+#include "include.h"
 using namespace std;
 
 
 void menuPrincipal() {
     system("clear");
+    mostrarCabecalho();
     cout << "\n=== SISTEMA CONCESSIONÁRIA ===" << endl;
     cout << "1. Gerenciar Estoque" << endl;
     cout << "2. Gerenciar Clientes" << endl;
@@ -20,6 +22,8 @@ void menuPrincipal() {
 }
 
 void menuEstoque() {
+    system("clear");
+    mostrarCabecalho();
     cout << "\n=== GERENCIAR ESTOQUE ===" << endl;
     cout << "1. Comprar Carro" << endl;
     cout << "2. Ver Estoque" << endl;
@@ -29,6 +33,8 @@ void menuEstoque() {
 }
 
 void menuClientes() {
+    system("clear");
+    mostrarCabecalho();
     cout << "\n=== GERENCIAR CLIENTES ===" << endl;
     cout << "1. Cadastrar Cliente" << endl;
     cout << "2. Listar Clientes" << endl;
@@ -38,6 +44,8 @@ void menuClientes() {
 }
 
 void menuFuncionarios() {
+    system("clear");
+    mostrarCabecalho();
     cout << "\n===== MENU DE FUNCIONÁRIOS =====\n";
     cout << "1. Adicionar funcionário\n";
     cout << "2. Listar funcionários\n";
@@ -48,6 +56,8 @@ void menuFuncionarios() {
 }
 
 void menuVendas() {
+    system("clear");
+    mostrarCabecalho();
     cout << "\n=== REALIZAR VENDA ===" << endl;
     cout << "1. Nova Venda" << endl;
     cout << "2. Histórico de Vendas" << endl;
@@ -56,11 +66,15 @@ void menuVendas() {
 }
 
 void menuPreferenciaUsuario() {
+    system("clear");
+    mostrarCabecalho();
     cout << "\n ==== PREFERENCIAS DO USUARIO ====" << endl;
-    cout << "1. Listar Preferencias" << endl;
-    cout << "2. Alterar Tema" << endl;
-    cout << "3. Altera Nome de Exibicao" << endl;
-    cout << "4. Menu de Inicio" << endl;
+    cout << "1 - Listar Preferências" << endl;
+    cout << "2 - Alterar Tema" << endl;
+    cout << "3 - Alterar Nome de Exibição" << endl;
+    cout << "4 - Trocar Usuário" << endl;
+    cout << "5 - Voltar ao menu principal" << endl;
+    cout << "Escolha uma opção: ";
 }
 
 

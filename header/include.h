@@ -21,6 +21,8 @@
 #include "logica_menus.h"
 #include "globals.h"
 #include "database.h"
+#include "interface.h"
+#include "usuarios.h"
 #include <sys/stat.h>
 
 

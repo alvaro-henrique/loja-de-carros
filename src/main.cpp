@@ -37,6 +37,8 @@ int main() {
                                    "matheus@gmail.com", endereco2);
     
     crudClientes.criar(cliente1);
+
+    iniciarInterface();
     
     int opcao;
     

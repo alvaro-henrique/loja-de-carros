@@ -764,53 +764,108 @@ void gerenciarRelatorios() {
 void gerenciarPreferenciaUsuario() {
     int opcaoPreferencias;
 
+    auto confirmarAcao = [](const string &mensagem) -> bool {
+        string resp;
+        while (true) {
+            cout << mensagem << " (sim/nao): ";
+            getline(cin, resp);
+            transform(resp.begin(), resp.end(), resp.begin(), ::tolower);
+            if (resp == "sim" || resp == "s") return true;
+            if (resp == "nao" || resp == "n") return false;
+            cout << "Resposta inválida, tente novamente.\n";
+        }
+    };
+
     do {
+        mostrarCabecalho();
         menuPreferenciaUsuario();
-        try {
-            cin >> opcaoPreferencias;
-            cin.ignore();
+        
 
-            // Se a leitura falhar, lança exceção
-            if (cin.fail()) {
-                throw runtime_error("Entrada inválida! Digite apenas números de 1 a 4.");
-            }
-
-            switch (opcaoPreferencias) {
-                case 1: {
-                    // Listar preferencias
-                    //Ler csv funcionarios e listar cada funcionario e seu tema e nome de exibicao
-                    cout << "listando preferencias..." << endl;
-                    break;
-                }
-                case 2: {
-                    // alterar tema 
-                    // logica escolher black ou white
-                    // gravar escolha no csv
-                    cout << "listando tema..." << endl;
-
-                    break;
-                }
-                case 3: {
-                    // alterar nome exibicao
-                    // logica recolher nome e gravar no csv
-                    cout << "listando nome..." << endl;
-
-                    break;
-                }
-                case 4:
-                    cout << "Voltando ao menu principal..." << endl;
-                    break;
-                default:
-                    throw runtime_error("Opção inválida! Digite um número entre 1 e 4.");
-            }
-            
-        } catch (const exception& e) {
-            cout << "Erro: " << e.what() << endl;
-            
-            // Limpa o estado de erro e o buffer
+        if (!(cin >> opcaoPreferencias)) {
             cin.clear();
-            cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Entrada inválida! Digite apenas números.\n";
+            continue;
+        }
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        switch (opcaoPreferencias) {
+            case 1: {
+                cout << "\nUsuário atual: " << usuarioGlobal << endl;
+                cout << "Tema atual: " << (temaGlobal.empty() ? "Padrão" : temaGlobal) << endl;
+                cout << "\nPressione ENTER para voltar...";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                break;
+            }
+            case 2: {
+                string novoTema = escolherTemaComConfirmacao();
+                if (confirmarAcao("Deseja realmente alterar o tema para \"" + novoTema + "\"?")) {
+                    temaGlobal = novoTema;
+
+                    for (auto &u : listaUsuarios) {
+                        if (u.nome == usuarioGlobal) {
+                            u.tema = novoTema;
+                            break;
+                        }
+                    }
+                    salvarUsuarios();
+                    cout << "Tema atualizado com sucesso para: " << temaGlobal << " ♡\n";
+                } else {
+                    cout << "Alteração de tema cancelada.\n";
+                }
+                break;
+            }
+            case 3: {
+                string novoNome;
+                cout << "\nDigite o novo nome de exibição: ";
+                getline(cin, novoNome);
+
+                if (!novoNome.empty()) {
+                    if (confirmarAcao("Deseja realmente alterar o nome para \"" + novoNome + "\"?")) {
+                        size_t idxUsuario = 0;
+                        bool encontrado = false;
+                        for (size_t i = 0; i < listaUsuarios.size(); ++i) {
+                            if (listaUsuarios[i].nome == usuarioGlobal) {
+                                idxUsuario = i;
+                                encontrado = true;
+                                break;
+                            }
+                        }
+
+                        if (encontrado) {
+                            listaUsuarios[idxUsuario].nome = novoNome;
+                            usuarioGlobal = novoNome;
+
+                            salvarUsuarios();
+                            cout << "Nome de exibição atualizado com sucesso para: " << usuarioGlobal << " ♡\n";
+                        } else {
+                            cout << "Erro: usuário não encontrado!\n";
+                        }
+                    } else {
+                        cout << "Alteração de nome cancelada.\n";
+                    }
+                } else {
+                    cout << "Nome não pode ser vazio.\n";
+                }
+                break;
+            }
+            case 4: {
+                cout << "\n=== TROCAR USUÁRIO ===\n";
+                Usuario escolhido = escolherUsuario();
+                usuarioGlobal = escolhido.nome;
+                temaGlobal = escolhido.tema;
+                aplicarTema(temaGlobal);
+                cout << "Usuário trocado com sucesso! Bem-vindo(a), " << usuarioGlobal << " ♡\n";
+                break;
+            }
+            case 5:
+                cout << "Voltando ao menu principal...\n";
+                break;
+            default:
+                cout << "Opção inválida! Digite um número entre 1 e 5.\n";
+                break;
         }
 
-    } while (opcaoPreferencias != 4);
+    } while (opcaoPreferencias != 5);
 }
+
