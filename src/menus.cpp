@@ -22,7 +22,6 @@ void menuPrincipal() {
 }
 
 void menuEstoque() {
-    system("clear");
     mostrarCabecalho();
     cout << "\n=== GERENCIAR ESTOQUE ===" << endl;
     cout << "1. Comprar Carro" << endl;
@@ -33,7 +32,6 @@ void menuEstoque() {
 }
 
 void menuClientes() {
-    system("clear");
     mostrarCabecalho();
     cout << "\n=== GERENCIAR CLIENTES ===" << endl;
     cout << "1. Cadastrar Cliente" << endl;
@@ -44,19 +42,17 @@ void menuClientes() {
 }
 
 void menuFuncionarios() {
-    system("clear");
     mostrarCabecalho();
-    cout << "\n===== MENU DE FUNCIONÁRIOS =====\n";
-    cout << "1. Adicionar funcionário\n";
-    cout << "2. Listar funcionários\n";
-    cout << "3. Atualizar funcionário\n";
-    cout << "4. Remover funcionário\n";
-    cout << "0. Sair\n";
+    cout << "\n===== MENU DE FUNCIONÁRIOS =====" << endl;
+    cout << "1. Adicionar funcionário" << endl;
+    cout << "2. Listar funcionários" << endl;
+    cout << "3. Atualizar funcionário" << endl;
+    cout << "4. Remover funcionário" << endl;
+    cout << "0. Voltar" << endl;
     cout << "Escolha uma opção: ";
 }
 
 void menuVendas() {
-    system("clear");
     mostrarCabecalho();
     cout << "\n=== REALIZAR VENDA ===" << endl;
     cout << "1. Nova Venda" << endl;

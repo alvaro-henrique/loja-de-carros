@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include "formatacaoreal.h" // <-- INCLUI A FUNÇÃO DE FORMATAR
+#include <limits>
 
 using namespace std;
 
@@ -64,6 +65,8 @@ public:
             estoque.ler(i)->exibirCarro();
             cout << "\n---\n";
         }
+        cout << "\nPressione ENTER para voltar...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     
     // --- MÉTODO ATUALIZADO ---
@@ -78,13 +81,12 @@ public:
                 carrosDisponiveis++;
             }
         }
-        
         cout << "=== BALANÇO ===" << endl;
-        
         cout << "Caixa: " << formatarReal(caixa) << endl;
         cout << "Total investido em estoque: " << formatarReal(totalInvestido) << endl;
-        
         cout << "Carros disponíveis: " << carrosDisponiveis << "/" << estoque.tamanho() << endl;
+        cout << "Pressione ENTER para voltar..." << endl;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 };
 

@@ -105,7 +105,9 @@ void gerenciarEstoque(Concessionaria* concessionaria) {
                     try {
                         Carro* novoCarro = new Carro(placa, modelo, cor, marca, ano, precoCompra, precoVenda);
                         concessionaria->comprarCarro(novoCarro);
-                        cout << "✅ Carro comprado com sucesso!" << endl;
+                        cout << endl << "✅ Carro comprado com sucesso!" << endl;
+                        cout << "\nPressione ENTER para voltar...";
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     } 
                     catch (ExcecaoCustomizada& e) {
                         cout << "❌ Erro: " << e.what() << endl;
