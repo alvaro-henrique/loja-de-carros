@@ -30,9 +30,8 @@ public:
             estoque.criar(carro);
             caixa -= carro->getPrecoCompra();
             carro->comprar();
-            // (A mensagem de "sucesso" foi movida para o main.cpp)
         } else {
-            throw ExcecaoCustomizada("Caixa insuficiente para comprar o carro!");
+            throw ExcecaoCaixaInsuficiente(caixa, carro->getPrecoCompra());
         }
     }
     
@@ -45,7 +44,7 @@ public:
                  << " | Caixa atual: " << formatarReal(caixa) << endl;
             estoque.remover(indexEstoque);
         } else {
-            throw ExcecaoCustomizada("Carro não está disponível para venda!");
+            throw ExcecaoCarroNaoDisponivel(carro->getPlaca(), carro->getStatus());
         }
     }
     
@@ -55,6 +54,10 @@ public:
     
     int getTamanhoEstoque() {
         return estoque.tamanho();
+    }
+    
+    vector<Carro*> getEstoque() {
+        return estoque.lerTodos();
     }
     
     void exibirEstoque() {

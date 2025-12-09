@@ -33,7 +33,7 @@ int main() {
     cout << "Dvendedor1: " << vendedor1 << endl;
     
     Endereco* endereco2 = new Endereco("Rua das Flores", 456, "Cidade Nova", "Natal", "RN");
-    Cliente* cliente1 = new Cliente("84992233344", "Matheus", 40, "11888888888", 
+    Cliente* cliente1 = new Cliente("84992233344", "Matheus Theus", 40, "11888888888", 
                                    "matheus@gmail.com", endereco2);
     
     crudClientes.criar(cliente1);

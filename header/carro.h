@@ -2,6 +2,7 @@
 #define CARRO_H
 
 #include <string>
+#include <vector>
 #include "excecoes.h" 
 
 class Carro {
@@ -21,7 +22,7 @@ public:
         float precoCompra, float precoVenda, std::string status = "Disponível");
     
     // Metodos get 
-    std::string getPlaca();
+    std::string getPlaca() const;
     std::string getModelo();
     std::string getCor();
     std::string getMarca();
@@ -39,6 +40,9 @@ public:
     void setPrecoCompra(float precoCompra);
     void setPrecoVenda(float precoVenda);
     void setStatus(std::string status);
+    
+    // Validação de duplicidade
+    static void verificarPlacaDuplicada(const std::vector<Carro*>& carros, const std::string& placa);
     
     // Outros metodos
     bool estaDisponivel();

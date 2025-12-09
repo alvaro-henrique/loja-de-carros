@@ -13,12 +13,19 @@ protected:
     float salario;
     std::string tema;
     std::string nomeExibicao;
+    
+    // Métodos auxiliares de validação
+    bool validarNome(const std::string& nome);
+    bool validarTelefone(const std::string& telefone);
 
 public:
     // Construtor
     Funcionario(std::string CPF, std::string nome, int idade, std::string telefone, 
                 std::string email, Endereco* endereco, int codigo, float salario,
                 std::string tema = "claro", std::string nomeExibicao = "Funcionario");
+    
+    // Destrutor
+    virtual ~Funcionario();
     
     // Getters
     int getCodigo();
@@ -32,6 +39,10 @@ public:
     void setSalario(float salario);
     void setTema(std::string tema);
     void setNomeExibicao(std::string nomeExibicao);
+    void setNome(std::string nome);
+    void setTelefone(std::string telefone);
+    void setCPF(std::string cpf);
+    void setIdade(int idade);
     
     // virtuais
     virtual float calcularSalario();
