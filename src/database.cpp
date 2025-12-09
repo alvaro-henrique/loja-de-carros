@@ -80,13 +80,13 @@ bool ExportarDataBase::exportarFuncionariosCSV(CRUD<Funcionario>& crudFuncionari
     try {
         // Verifica se a pasta existe
         if (!verificarPastaDatabase()) {
-            throw ExcecaoCustomizada("Não foi possível criar/acessar a pasta database!");
+            throw ExcecaoPastaDatabase();
         }
         
         ofstream arquivo(CAMINHO_FUNCIONARIOS);
         
         if (!arquivo.is_open()) {
-            throw ExcecaoCustomizada("Erro ao abrir arquivo para escrita!");
+            throw ExcecaoArquivo(CAMINHO_FUNCIONARIOS, "abertura");
         }
         
         // Cabeçalho do CSV
@@ -142,13 +142,13 @@ bool ExportarDataBase::exportarConcessionariaCSV(Concessionaria* concessionaria)
     try {
         // Verifica se a pasta existe
         if (!verificarPastaDatabase()) {
-            throw ExcecaoCustomizada("Não foi possível criar/acessar a pasta database!");
+            throw ExcecaoPastaDatabase();
         }
         
         ofstream arquivo(CAMINHO_CONCESSIONARIA);
         
         if (!arquivo.is_open()) {
-            throw ExcecaoCustomizada("Erro ao abrir arquivo para escrita!");
+            throw ExcecaoArquivo(CAMINHO_CONCESSIONARIA, "abertura");
         }
         
         // Obter data atual

@@ -14,7 +14,7 @@ Carro::Carro(string placa, string modelo, string cor, string marca, int ano,
 }
 
 // Getters
-string Carro::getPlaca() { return placa; }
+string Carro::getPlaca() const { return placa; }
 string Carro::getModelo() { return modelo; }
 string Carro::getCor() { return cor; }
 string Carro::getMarca() { return marca; }
@@ -30,17 +30,17 @@ void Carro::setCor(string cor) { this->cor = cor; }
 void Carro::setMarca(string marca) { this->marca = marca; }
 
 void Carro::setAno(int ano) { 
-    if (ano < 1900 || ano > 2030) throw ExcecaoCustomizada("Ano inválido!");
+    if (ano < 1900 || ano > 2030) throw ExcecaoAnoInvalido(ano);
     this->ano = ano; 
 }
 
 void Carro::setPrecoCompra(float precoCompra) { 
-    if (precoCompra < 0) throw ExcecaoCustomizada("Preço de compra não pode ser negativo!");
+    if (precoCompra < 0) throw ExcecaoPrecoInvalido(precoCompra, "Preço de compra");
     this->precoCompra = precoCompra; 
 }
 
 void Carro::setPrecoVenda(float precoVenda) { 
-    if (precoVenda < 0) throw ExcecaoCustomizada("Preço de venda não pode ser negativo!");
+    if (precoVenda < 0) throw ExcecaoPrecoInvalido(precoVenda, "Preço de venda");
     this->precoVenda = precoVenda; 
 }
 
@@ -61,6 +61,15 @@ void Carro::comprar() {
 
 float Carro::calcularLucro() {
     return precoVenda - precoCompra;
+}
+
+// Verificação de Duplicidade de Placa
+void Carro::verificarPlacaDuplicada(const vector<Carro*>& carros, const string& placa) {
+    for (Carro* carro : carros) {
+        if (carro && carro->getPlaca() == placa) {
+            throw ExcecaoPlacaDuplicada(placa);
+        }
+    }
 }
 
 void Carro::exibirCarro() {

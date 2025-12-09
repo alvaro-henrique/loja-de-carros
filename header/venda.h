@@ -36,6 +36,12 @@ public:
         calcularValorTotal();
     }
     
+    // Destrutor - NÃO libera cliente, vendedor ou carros (não são possuidores deles)
+    ~Venda() {
+        // Os ponteiros são referências apenas, não devem ser deletados aqui
+        // O CRUD ou outro gerenciador é responsável por liberá-los
+    }
+    
     int getId() { return id; }
     string getData() { return data; }
     float getValorTotal() { return valorTotal; }

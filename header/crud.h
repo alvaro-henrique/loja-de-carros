@@ -25,7 +25,7 @@ public:
     
     T* ler(int index) {
         if (index < 0 || index >= (int)registros.size()) {
-            throw ExcecaoCustomizada("Registro não encontrado!");
+            throw ExcecaoIndiceInvalido(index, registros.size());
         }
         return registros[index];
     }
@@ -36,7 +36,7 @@ public:
     
     void atualizar(int index, T* registro) {
         if (index < 0 || index >= (int)registros.size()) {
-            throw ExcecaoCustomizada("Registro não encontrado!");
+            throw ExcecaoIndiceInvalido(index, registros.size());
         }
         delete registros[index];
         registros[index] = registro;
@@ -44,7 +44,7 @@ public:
     
     void remover(int index) {
         if (index < 0 || index >= (int)registros.size()) {
-            throw ExcecaoCustomizada("Registro não encontrado!");
+            throw ExcecaoIndiceInvalido(index, registros.size());
         }
         delete registros[index];
         registros.erase(registros.begin() + index);

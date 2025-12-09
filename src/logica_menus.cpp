@@ -9,6 +9,431 @@
 
 using namespace std;
 
+// ============================================================
+// FUNÇÕES AUXILIARES DE VALIDAÇÃO COM VERIFICAÇÃO DE DUPLICADOS
+// ============================================================
+
+/**
+ * Valida CPF em tempo real (formato + duplicação)
+ * @param tipo - "cliente" ou "funcionario"
+ */
+void validarCPFComDuplicata(string& cpf, const string& tipo) {
+    while (true) {
+        cout << "CPF (apenas números): ";
+        getline(cin, cpf);
+        
+        // Remove caracteres não numéricos
+        cpf.erase(remove_if(cpf.begin(), cpf.end(), 
+                [](char c) { return !isdigit(c); }), cpf.end());
+        
+        if (cpf.empty() || cpf.length() != 11) {
+            cout << "❌ CPF inválido! Deve conter 11 dígitos.\n";
+            continue;
+        }
+        
+        // Verifica duplicação
+        try {
+            if (tipo == "cliente") {
+                vector<Cliente*> clientesTemp = crudClientes.lerTodos();
+                vector<Pessoa*> clientes(clientesTemp.begin(), clientesTemp.end());
+                Pessoa::verificarCPFDuplicado(clientes, cpf);
+            } else if (tipo == "funcionario") {
+                vector<Funcionario*> funcionariosTemp = crudFuncionarios.lerTodos();
+                vector<Pessoa*> funcionarios(funcionariosTemp.begin(), funcionariosTemp.end());
+                Pessoa::verificarCPFDuplicado(funcionarios, cpf);
+            }
+            break; // CPF válido e não duplicado
+        } catch (const ExcecaoCPFDuplicado& e) {
+            cout << "❌ " << e.what() << endl;
+        }
+    }
+}
+
+/**
+ * Valida telefone em tempo real (formato + duplicação)
+ */
+void validarTelefoneComDuplicata(string& telefone, const string& tipo) {
+    while (true) {
+        cout << "Telefone: ";
+        getline(cin, telefone);
+        
+        // Remove caracteres não numéricos
+        string telefoneLimpo;
+        for (char c : telefone) {
+            if (isdigit(c) || c == '+') {
+                telefoneLimpo += c;
+            }
+        }
+        
+        if (telefoneLimpo.empty() || telefoneLimpo.length() < 10) {
+            cout << "❌ Telefone inválido! Deve conter pelo menos 10 dígitos.\n";
+            continue;
+        }
+        
+        telefone = telefoneLimpo;
+        
+        // Verifica duplicação
+        try {
+            if (tipo == "cliente") {
+                vector<Cliente*> clientesTemp = crudClientes.lerTodos();
+                vector<Pessoa*> clientes(clientesTemp.begin(), clientesTemp.end());
+                Pessoa::verificarTelefoneDuplicado(clientes, telefone);
+            } else if (tipo == "funcionario") {
+                vector<Funcionario*> funcionariosTemp = crudFuncionarios.lerTodos();
+                vector<Pessoa*> funcionarios(funcionariosTemp.begin(), funcionariosTemp.end());
+                Pessoa::verificarTelefoneDuplicado(funcionarios, telefone);
+            }
+            break; // Telefone válido e não duplicado
+        } catch (const ExcecaoTelefoneDuplicado& e) {
+            cout << "❌ " << e.what() << endl;
+        }
+    }
+}
+
+/**
+ * Valida email em tempo real (formato + duplicação)
+ */
+void validarEmailComDuplicata(string& email, const string& tipo) {
+    while (true) {
+        cout << "Email: ";
+        getline(cin, email);
+        
+        if (email.empty() || email.find('@') == string::npos || email.find('.') == string::npos) {
+            cout << "❌ Email inválido! Deve conter '@' e '.'\n";
+            continue;
+        }
+        
+        // Verifica duplicação
+        try {
+            if (tipo == "cliente") {
+                vector<Cliente*> clientesTemp = crudClientes.lerTodos();
+                vector<Pessoa*> clientes(clientesTemp.begin(), clientesTemp.end());
+                Pessoa::verificarEmailDuplicado(clientes, email);
+            } else if (tipo == "funcionario") {
+                vector<Funcionario*> funcionariosTemp = crudFuncionarios.lerTodos();
+                vector<Pessoa*> funcionarios(funcionariosTemp.begin(), funcionariosTemp.end());
+                Pessoa::verificarEmailDuplicado(funcionarios, email);
+            }
+            break; // Email válido e não duplicado
+        } catch (const ExcecaoEmailDuplicado& e) {
+            cout << "❌ " << e.what() << endl;
+        }
+    }
+}
+
+/**
+ * Valida nome em tempo real (4 caracteres + 1 espaço)
+ */
+void validarNomeCompleto(string& nome) {
+    while (true) {
+        cout << "Nome: ";
+        getline(cin, nome);
+        
+        if (nome.empty()) {
+            cout << "❌ Nome é obrigatório!\n";
+            continue;
+        }
+        
+        if (nome.length() < 4) {
+            cout << "❌ Nome deve ter no mínimo 4 caracteres!\n";
+            continue;
+        }
+        
+        // Verifica se tem pelo menos 1 espaço (nome e sobrenome)
+        int espacos = 0;
+        for (char c : nome) {
+            if (c == ' ') espacos++;
+        }
+        
+        if (espacos < 1) {
+            cout << "❌ Nome deve conter nome e sobrenome (mínimo 1 espaço)!\n";
+            continue;
+        }
+        
+        break; // Nome válido
+    }
+}
+
+/**
+ * Valida idade em tempo real
+ */
+void validarIdade(int& idade) {
+    while (true) {
+        cout << "Idade: ";
+        cin >> idade;
+        
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "❌ Idade inválida! Digite um número inteiro.\n";
+            continue;
+        }
+        
+        if (idade < 0 || idade > 120) {
+            cout << "❌ Idade deve estar entre 0 e 120 anos!\n";
+            continue;
+        }
+        
+        cin.ignore();
+        break; // Idade válida
+    }
+}
+
+/**
+ * Valida código de funcionário em tempo real
+ */
+void validarCodigoFuncionario(int& codigo) {
+    while (true) {
+        cout << "Código do funcionário: ";
+        cin >> codigo;
+        
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "❌ Código inválido! Digite um número inteiro positivo.\n";
+            continue;
+        }
+        
+        if (codigo <= 0) {
+            cout << "❌ Código deve ser um número positivo!\n";
+            continue;
+        }
+        
+        cin.ignore();
+        break; // Código válido
+    }
+}
+
+/**
+ * Valida salário em tempo real
+ */
+void validarSalario(float& salario) {
+    while (true) {
+        cout << "Salário: R$ ";
+        cin >> salario;
+        
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "❌ Salário inválido! Digite um número decimal.\n";
+            continue;
+        }
+        
+        if (salario < 0) {
+            cout << "❌ Salário não pode ser negativo!\n";
+            continue;
+        }
+        
+        cin.ignore();
+        break; // Salário válido
+    }
+}
+
+/**
+ * Valida endereco em tempo real
+ */
+void validarEnderecoCompleto(string& rua, int& numero, string& bairro, string& cidade, string& estado) {
+    // Validação de rua
+    while (true) {
+        cout << "Rua: ";
+        getline(cin, rua);
+        
+        if (rua.empty()) {
+            cout << "❌ Rua é obrigatória!\n";
+        } else {
+            break;
+        }
+    }
+    
+    // Validação de número
+    while (true) {
+        cout << "Número: ";
+        cin >> numero;
+        
+        if (cin.fail() || numero <= 0) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "❌ Número inválido! Digite um valor positivo.\n";
+        } else {
+            cin.ignore();
+            break;
+        }
+    }
+    
+    // Validação de bairro
+    while (true) {
+        cout << "Bairro: ";
+        getline(cin, bairro);
+        
+        if (bairro.empty()) {
+            cout << "❌ Bairro é obrigatório!\n";
+        } else {
+            break;
+        }
+    }
+    
+    // Validação de cidade
+    while (true) {
+        cout << "Cidade: ";
+        getline(cin, cidade);
+        
+        if (cidade.empty()) {
+            cout << "❌ Cidade é obrigatória!\n";
+        } else {
+            break;
+        }
+    }
+    
+    // Validação de estado
+    while (true) {
+        cout << "Estado (sigla): ";
+        getline(cin, estado);
+        
+        // Converte para maiúsculas
+        transform(estado.begin(), estado.end(), estado.begin(), ::toupper);
+        
+        if (estado.empty() || estado.length() != 2) {
+            cout << "❌ Estado inválido! Digite a sigla (2 letras).\n";
+        } else {
+            break;
+        }
+    }
+}
+
+/**
+ * Valida modelo do carro em tempo real
+ */
+void validarModelo(string& modelo) {
+    while (true) {
+        cout << "Modelo: ";
+        getline(cin, modelo);
+        
+        if (modelo.empty()) {
+            cout << "❌ Modelo é obrigatório!\n";
+            continue;
+        }
+        
+        if (modelo.length() < 2) {
+            cout << "❌ Modelo deve ter no mínimo 2 caracteres!\n";
+            continue;
+        }
+        
+        break;
+    }
+}
+
+/**
+ * Valida cor do carro em tempo real
+ */
+void validarCor(string& cor) {
+    while (true) {
+        cout << "Cor: ";
+        getline(cin, cor);
+        
+        if (cor.empty()) {
+            cout << "❌ Cor é obrigatória!\n";
+            continue;
+        }
+        
+        if (cor.length() < 2) {
+            cout << "❌ Cor deve ter no mínimo 2 caracteres!\n";
+            continue;
+        }
+        
+        break;
+    }
+}
+
+/**
+ * Valida marca do carro em tempo real
+ */
+void validarMarca(string& marca) {
+    while (true) {
+        cout << "Marca: ";
+        getline(cin, marca);
+        
+        if (marca.empty()) {
+            cout << "❌ Marca é obrigatória!\n";
+            continue;
+        }
+        
+        if (marca.length() < 2) {
+            cout << "❌ Marca deve ter no mínimo 2 caracteres!\n";
+            continue;
+        }
+        
+        break;
+    }
+}
+
+/**
+ * Valida placa em tempo real (formato + duplicação)
+ */
+void validarPlacaComDuplicata(string& placa) {
+    while (true) {
+        cout << "Placa (7 caracteres alfanuméricos): ";
+        getline(cin, placa);
+        
+        // Valida formato (exatamente 7 caracteres alfanuméricos)
+        bool placaValida = (placa.size() == 7);
+        if (placaValida) {
+            for (char c : placa) {
+                if (!isalnum(static_cast<unsigned char>(c))) {
+                    placaValida = false;
+                    break;
+                }
+            }
+        }
+        
+        if (!placaValida) {
+            cout << "❌ Placa inválida! Digite exatamente 7 letras ou números.\n";
+            continue;
+        }
+        
+        // Verifica duplicação (busca em todo o estoque da concessionária)
+        try {
+            vector<Carro*> estoque = concessionaria->getEstoque();
+            Carro::verificarPlacaDuplicada(estoque, placa);
+            break; // Placa válida e não duplicada
+        } catch (const ExcecaoPlacaDuplicada& e) {
+            cout << "❌ " << e.what() << "\n";
+        }
+    }
+}
+
+/**
+ * Valida método de pagamento em tempo real (com opções pré-definidas)
+ */
+void validarMetodoPagamento(string& metodo) {
+    vector<string> metodosValidos = {
+        "Dinheiro",
+        "Cartão Crédito",
+        "Cartão Débito",
+        "Cheque",
+        "Financiamento"
+    };
+    
+    while (true) {
+        cout << "\n--- MÉTODO DE PAGAMENTO ---" << endl;
+        for (int i = 0; i < static_cast<int>(metodosValidos.size()); i++) {
+            cout << "[" << (i+1) << "] " << metodosValidos[i] << endl;
+        }
+        
+        cout << "Escolha o método (1-" << metodosValidos.size() << "): ";
+        int escolha;
+        cin >> escolha;
+        cin.ignore();
+        
+        if (escolha < 1 || escolha > static_cast<int>(metodosValidos.size())) {
+            cout << "❌ Opção inválida! Escolha entre 1 e " << metodosValidos.size() << "\n";
+            continue;
+        }
+        
+        metodo = metodosValidos[escolha - 1];
+        break;
+    }
+}
+
 
 void gerenciarEstoque(Concessionaria* concessionaria) {
     int opcaoEstoque;
@@ -32,34 +457,17 @@ void gerenciarEstoque(Concessionaria* concessionaria) {
                     
                     cout << "\n--- COMPRAR CARRO ---" << endl;
                     
-                    // Loop para placa válida
-                    while (true) {
-                        cout << "Placa: ";
-                        getline(cin, placa);
-
-                        bool placaValida = (placa.size() == 7);
-                        if (placaValida) {
-                            for (char c : placa) {
-                                if (!isalnum(static_cast<unsigned char>(c))) {
-                                    placaValida = false;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (!placaValida) {
-                            cout << "❌ Placa inválida! Digite exatamente 7 letras ou números.\n";
-                        } else {
-                            break;
-                        }
-                    }
+                    // Validação de placa em tempo real (com verificação de duplicata)
+                    validarPlacaComDuplicata(placa);
                     
-                    cout << "Modelo: ";
-                    getline(cin, modelo);
-                    cout << "Cor: ";
-                    getline(cin, cor);
-                    cout << "Marca: ";
-                    getline(cin, marca);
+                    // Validação de modelo em tempo real
+                    validarModelo(modelo);
+                    
+                    // Validação de cor em tempo real
+                    validarCor(cor);
+                    
+                    // Validação de marca em tempo real
+                    validarMarca(marca);
                     
                     // Validação segura para ano
                     while (true) {
@@ -163,153 +571,23 @@ void gerenciarClientes() {
                     
                     cout << "\n--- CADASTRAR CLIENTE ---" << endl;
                     
-                    // Validação de CPF
-                    while (true) {
-                        cout << "CPF (apenas números): ";
-                        getline(cin, cpf);
-                        
-                        // Remove caracteres não numéricos
-                        cpf.erase(remove_if(cpf.begin(), cpf.end(), 
-                                [](char c) { return !isdigit(c); }), cpf.end());
-                        
-                        if (cpf.empty() || cpf.length() != 11) {
-                            cout << "❌ CPF inválido! Deve conter 11 dígitos.\n";
-                        } else {
-                            break;
-                        }
-                    }
+                    // Validação de CPF com verificação de duplicata
+                    validarCPFComDuplicata(cpf, "cliente");
                     
-                    // Validação de nome
-                    while (true) {
-                        cout << "Nome: ";
-                        getline(cin, nome);
-                        
-                        if (nome.empty()) {
-                            cout << "❌ Nome é obrigatório!\n";
-                        } else if (nome.length() < 2) {
-                            cout << "❌ Nome muito curto!\n";
-                        } else {
-                            break;
-                        }
-                    }
+                    // Validação de nome (4 caracteres + 1 espaço)
+                    validarNomeCompleto(nome);
                     
                     // Validação de idade
-                    while (true) {
-                        cout << "Idade: ";
-                        cin >> idade;
-                        
-                        if (cin.fail() || idade < 0 || idade > 120) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            cout << "❌ Idade inválida! Digite um valor entre 0 e 120.\n";
-                        } else {
-                            cin.ignore();
-                            break;
-                        }
-                    }
+                    validarIdade(idade);
                     
-                    // Validação de telefone
-                    while (true) {
-                        cout << "Telefone: ";
-                        getline(cin, telefone);
-                        
-                        // Remove caracteres não numéricos, mantendo + se presente
-                        string telefoneLimpo;
-                        for (char c : telefone) {
-                            if (isdigit(c) || c == '+') {
-                                telefoneLimpo += c;
-                            }
-                        }
-                        
-                        if (telefoneLimpo.empty() || telefoneLimpo.length() < 10) {
-                            cout << "❌ Telefone inválido! Deve conter pelo menos 10 dígitos.\n";
-                        } else {
-                            telefone = telefoneLimpo;
-                            break;
-                        }
-                    }
+                    // Validação de telefone com verificação de duplicata
+                    validarTelefoneComDuplicata(telefone, "cliente");
                     
-                    // Validação de email
-                    while (true) {
-                        cout << "Email: ";
-                        getline(cin, email);
-                        
-                        if (email.empty()) {
-                            cout << "❌ Email é obrigatório!\n";
-                        } else if (email.find('@') == string::npos || email.find('.') == string::npos) {
-                            cout << "❌ Email inválido! Deve conter '@' e '.'\n";
-                        } else {
-                            break;
-                        }
-                    }
+                    // Validação de email com verificação de duplicata
+                    validarEmailComDuplicata(email, "cliente");
                     
                     cout << "\n--- ENDEREÇO ---" << endl;
-                    
-                    // Validação de rua
-                    while (true) {
-                        cout << "Rua: ";
-                        getline(cin, rua);
-                        
-                        if (rua.empty()) {
-                            cout << "❌ Rua é obrigatória!\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    // Validação de número
-                    while (true) {
-                        cout << "Número: ";
-                        cin >> numero;
-                        
-                        if (cin.fail() || numero <= 0) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            cout << "❌ Número inválido! Digite um valor positivo.\n";
-                        } else {
-                            cin.ignore();
-                            break;
-                        }
-                    }
-                    
-                    // Validação de bairro
-                    while (true) {
-                        cout << "Bairro: ";
-                        getline(cin, bairro);
-                        
-                        if (bairro.empty()) {
-                            cout << "❌ Bairro é obrigatório!\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    // Validação de cidade
-                    while (true) {
-                        cout << "Cidade: ";
-                        getline(cin, cidade);
-                        
-                        if (cidade.empty()) {
-                            cout << "❌ Cidade é obrigatória!\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    // Validação de estado
-                    while (true) {
-                        cout << "Estado (sigla): ";
-                        getline(cin, estado);
-                        
-                        // Converte para maiúsculas
-                        transform(estado.begin(), estado.end(), estado.begin(), ::toupper);
-                        
-                        if (estado.empty() || estado.length() != 2) {
-                            cout << "❌ Estado inválido! Digite a sigla (2 letras).\n";
-                        } else {
-                            break;
-                        }
-                    }
+                    validarEnderecoCompleto(rua, numero, bairro, cidade, estado);
                     
                     try {
                         Endereco* endereco = new Endereco(rua, numero, bairro, cidade, estado);
@@ -319,9 +597,6 @@ void gerenciarClientes() {
                         
                     } catch (ExcecaoCustomizada& e) {
                         cout << "❌ Erro: " << e.what() << endl;
-                        // Limpeza de memória em caso de erro
-                        // delete endereco; // Descomente se necessário
-                        // delete novoCliente; // Descomente se necessário
                     } catch (bad_alloc& e) {
                         cout << "❌ Erro de memória: Não foi possível cadastrar o cliente." << endl;
                     } catch (exception& e) {
@@ -397,44 +672,36 @@ void gerenciarFuncionarios() {
                     float salario;
 
                     cout << "\n--- CADASTRAR FUNCIONÁRIO ---" << endl;
-                    cout << "CPF: ";
-                    getline(cin, cpf);
-                    cout << "Nome: ";
-                    getline(cin, nome);
+                    
+                    // Validação de CPF com verificação de duplicata
+                    validarCPFComDuplicata(cpf, "funcionario");
+                    
+                    // Validação de nome (4 caracteres + 1 espaço)
+                    validarNomeCompleto(nome);
 
                     cout << "Nome de Exibição (opcional, Enter para pular): ";
                     getline(cin, nomeExibicao);
 
-                    cout << "Idade: ";
-                    cin >> idade;
-                    cin.ignore();
+                    // Validação de idade
+                    validarIdade(idade);
 
-                    cout << "Telefone: ";
-                    getline(cin, telefone);
-                    cout << "Email: ";
-                    getline(cin, email);
+                    // Validação de telefone com verificação de duplicata
+                    validarTelefoneComDuplicata(telefone, "funcionario");
+                    
+                    // Validação de email com verificação de duplicata
+                    validarEmailComDuplicata(email, "funcionario");
 
                     cout << "Tema (opcional, Enter para pular): ";
                     getline(cin, tema);
 
                     cout << "\n--- ENDEREÇO ---" << endl;
-                    cout << "Rua: ";
-                    getline(cin, rua);
-                    cout << "Número: ";
-                    cin >> numero;
-                    cin.ignore();
-                    cout << "Bairro: ";
-                    getline(cin, bairro);
-                    cout << "Cidade: ";
-                    getline(cin, cidade);
-                    cout << "Estado: ";
-                    getline(cin, estado);
+                    validarEnderecoCompleto(rua, numero, bairro, cidade, estado);
 
-                    cout << "Código do funcionário: ";
-                    cin >> codigo;
-                    cout << "Salário: R$ ";
-                    cin >> salario;
-                    cin.ignore();
+                    // Validação de código
+                    validarCodigoFuncionario(codigo);
+                    
+                    // Validação de salário
+                    validarSalario(salario);
 
                     try {
                         Endereco* endereco = new Endereco(rua, numero, bairro, cidade, estado);
@@ -465,9 +732,13 @@ void gerenciarFuncionarios() {
                                                 tema, nomeExibicao);
                         }
                         crudFuncionarios.criar(novo);
-                        cout << "Funcionário cadastrado com sucesso!" << endl;
+                        cout << "✅ Funcionário cadastrado com sucesso!" << endl;
                     } catch (ExcecaoCustomizada& e) {
-                        cout << "Erro: " << e.what() << endl;
+                        cout << "❌ Erro: " << e.what() << endl;
+                    } catch (bad_alloc& e) {
+                        cout << "❌ Erro de memória: Não foi possível cadastrar o funcionário." << endl;
+                    } catch (exception& e) {
+                        cout << "❌ Erro inesperado: " << e.what() << endl;
                     }
                     break;
                 }
@@ -678,8 +949,7 @@ void gerenciarVendas() {
                 }
                 
                 string metodoPagamento;
-                cout << "Método de pagamento: ";
-                getline(cin, metodoPagamento);
+                validarMetodoPagamento(metodoPagamento);
                 
                 try {
                     Venda* venda = new Venda(cliente, vendedor1, carrosVenda, metodoPagamento);
