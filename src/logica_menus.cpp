@@ -667,9 +667,9 @@ void gerenciarVendas() {
                         cout << "Índice inválido!" << endl;
                     }
                     
-                    cout << "Adicionar outro carro? (s/n): ";
+                    /* cout << "Adicionar outro carro? (s/n): ";
                     cin >> continuar;
-                    cin.ignore();
+                    cin.ignore(); */
                 }
                 
                 if (carrosVenda.empty()) {
