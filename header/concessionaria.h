@@ -35,12 +35,12 @@ public:
         }
     }
     
-    void venderCarro(int indexEstoque) {
+    void venderCarro(int indexEstoque, float comissao) {
         Carro* carro = estoque.ler(indexEstoque);
         if (carro->estaDisponivel()) {
-            caixa += carro->getPrecoVenda();
+            caixa += carro->getPrecoVenda() - comissao;
             carro->vender();
-            cout << "Carro vendido! Lucro: " << formatarReal(carro->calcularLucro()) 
+            cout << "Carro vendido! Lucro: " << formatarReal(carro->calcularLucro() - comissao) 
                  << " | Caixa atual: " << formatarReal(caixa) << endl;
             estoque.remover(indexEstoque);
         } else {

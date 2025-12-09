@@ -7,6 +7,7 @@
 #include "logica_menus.h"
 #include "include.h"
 
+
 using namespace std;
 
 
@@ -156,223 +157,615 @@ void gerenciarClientes() {
                 throw runtime_error("Entrada inválida! Digite apenas números de 1 a 4.");
             }
             
-            switch (opcaoClientes) {
-                case 1: {
-                    string cpf, nome, telefone, email, rua, bairro, cidade, estado;
-                    int idade, numero;
-                    
-                    cout << "\n--- CADASTRAR CLIENTE ---" << endl;
-                    
-                    // Validação de CPF
-                    while (true) {
-                        cout << "CPF (apenas números): ";
-                        getline(cin, cpf);
-                        
-                        // Remove caracteres não numéricos
-                        cpf.erase(remove_if(cpf.begin(), cpf.end(), 
-                                [](char c) { return !isdigit(c); }), cpf.end());
-                        
-                        if (cpf.empty() || cpf.length() != 11) {
-                            cout << "❌ CPF inválido! Deve conter 11 dígitos.\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    // Validação de nome
-                    while (true) {
-                        cout << "Nome: ";
-                        getline(cin, nome);
-                        
-                        if (nome.empty()) {
-                            cout << "❌ Nome é obrigatório!\n";
-                        } else if (nome.length() < 2) {
-                            cout << "❌ Nome muito curto!\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    // Validação de idade
-                    while (true) {
-                        cout << "Idade: ";
-                        cin >> idade;
-                        
-                        if (cin.fail() || idade < 0 || idade > 120) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            cout << "❌ Idade inválida! Digite um valor entre 0 e 120.\n";
-                        } else {
-                            cin.ignore();
-                            break;
-                        }
-                    }
-                    
-                    // Validação de telefone
-                    while (true) {
-                        cout << "Telefone: ";
-                        getline(cin, telefone);
-                        
-                        // Remove caracteres não numéricos, mantendo + se presente
-                        string telefoneLimpo;
-                        for (char c : telefone) {
-                            if (isdigit(c) || c == '+') {
-                                telefoneLimpo += c;
+                        switch (opcaoClientes) {
+            
+                            case 1: {
+            
+                                string cpf, nome, telefone, email, rua, bairro, cidade, estado;
+            
+                                int idade, numero;
+            
+                                
+            
+                                cout << "\n--- CADASTRAR CLIENTE ---" << endl;
+            
+                                
+            
+                                // Validação de CPF
+            
+                                while (true) {
+            
+                                    cout << "CPF (apenas números): ";
+            
+                                    getline(cin, cpf);
+            
+                                    
+            
+                                    // Remove caracteres não numéricos
+            
+                                    cpf.erase(remove_if(cpf.begin(), cpf.end(), 
+            
+                                            [](char c) { return !isdigit(c); }), cpf.end());
+            
+                                    
+            
+                                    if (cpf.empty() || cpf.length() != 11) {
+            
+                                        cout << "❌ CPF inválido! Deve conter 11 dígitos.\n";
+            
+                                    } else {
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                // Validação de nome
+            
+                                while (true) {
+            
+                                    cout << "Nome: ";
+            
+                                    getline(cin, nome);
+            
+                                    
+            
+                                    if (nome.empty()) {
+            
+                                        cout << "❌ Nome é obrigatório!\n";
+            
+                                    } else if (nome.length() < 2) {
+            
+                                        cout << "❌ Nome muito curto!\n";
+            
+                                    } else {
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                // Validação de idade
+            
+                                while (true) {
+            
+                                    cout << "Idade: ";
+            
+                                    cin >> idade;
+            
+                                    
+            
+                                    if (cin.fail() || idade < 0 || idade > 120) {
+            
+                                        cin.clear();
+            
+                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            
+                                        cout << "❌ Idade inválida! Digite um valor entre 0 e 120.\n";
+            
+                                    } else {
+            
+                                        cin.ignore();
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                // Validação de telefone
+            
+                                while (true) {
+            
+                                    cout << "Telefone: ";
+            
+                                    getline(cin, telefone);
+            
+                                    
+            
+                                    // Remove caracteres não numéricos, mantendo + se presente
+            
+                                    string telefoneLimpo;
+            
+                                    for (char c : telefone) {
+            
+                                        if (isdigit(c) || c == '+') {
+            
+                                            telefoneLimpo += c;
+            
+                                        }
+            
+                                    }
+            
+                                    
+            
+                                    if (telefoneLimpo.empty() || telefoneLimpo.length() < 10) {
+            
+                                        cout << "❌ Telefone inválido! Deve conter pelo menos 10 dígitos.\n";
+            
+                                    } else {
+            
+                                        telefone = telefoneLimpo;
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                // Validação de email
+            
+                                while (true) {
+            
+                                    cout << "Email: ";
+            
+                                    getline(cin, email);
+            
+                                    
+            
+                                    if (email.empty()) {
+            
+                                        cout << "❌ Email é obrigatório!\n";
+            
+                                    } else if (email.find('@') == string::npos || email.find('.') == string::npos) {
+            
+                                        cout << "❌ Email inválido! Deve conter '@' e '.'\n";
+            
+                                    } else {
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                cout << "\n--- ENDEREÇO ---" << endl;
+            
+                                
+            
+                                // Validação de rua
+            
+                                while (true) {
+            
+                                    cout << "Rua: ";
+            
+                                    getline(cin, rua);
+            
+                                    
+            
+                                    if (rua.empty()) {
+            
+                                        cout << "❌ Rua é obrigatória!\n";
+            
+                                    } else {
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                // Validação de número
+            
+                                while (true) {
+            
+                                    cout << "Número: ";
+            
+                                    cin >> numero;
+            
+                                    
+            
+                                    if (cin.fail() || numero <= 0) {
+            
+                                        cin.clear();
+            
+                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            
+                                        cout << "❌ Número inválido! Digite um valor positivo.\n";
+            
+                                    } else {
+            
+                                        cin.ignore();
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                // Validação de bairro
+            
+                                while (true) {
+            
+                                    cout << "Bairro: ";
+            
+                                    getline(cin, bairro);
+            
+                                    
+            
+                                    if (bairro.empty()) {
+            
+                                        cout << "❌ Bairro é obrigatório!\n";
+            
+                                    } else {
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                // Validação de cidade
+            
+                                while (true) {
+            
+                                    cout << "Cidade: ";
+            
+                                    getline(cin, cidade);
+            
+                                    
+            
+                                    if (cidade.empty()) {
+            
+                                        cout << "❌ Cidade é obrigatória!\n";
+            
+                                    } else {
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                // Validação de estado
+            
+                                while (true) {
+            
+                                    cout << "Estado (sigla): ";
+            
+                                    getline(cin, estado);
+            
+                                    
+            
+                                    // Converte para maiúsculas
+            
+                                    transform(estado.begin(), estado.end(), estado.begin(), ::toupper);
+            
+                                    
+            
+                                    if (estado.empty() || estado.length() != 2) {
+            
+                                        cout << "❌ Estado inválido! Digite a sigla (2 letras).\n";
+            
+                                    } else {
+            
+                                        break;
+            
+                                    }
+            
+                                }
+            
+                                
+            
+                                try {
+            
+                                    Endereco* endereco = new Endereco(rua, numero, bairro, cidade, estado);
+            
+                                    Cliente* novoCliente = new Cliente(cpf, nome, idade, telefone, email, endereco);
+            
+                                    crudClientes.criar(novoCliente);
+            
+                                    cout << "✅ Cliente cadastrado com sucesso!" << endl;
+            
+                                    
+            
+                                } catch (ExcecaoCustomizada& e) {
+            
+                                    cout << "❌ Erro: " << e.what() << endl;
+            
+                                    // Limpeza de memória em caso de erro
+            
+                                    // delete endereco; // Descomente se necessário
+            
+                                    // delete novoCliente; // Descomente se necessário
+            
+                                } catch (bad_alloc& e) {
+            
+                                    cout << "❌ Erro de memória: Não foi possível cadastrar o cliente." << endl;
+            
+                                } catch (exception& e) {
+            
+                                    cout << "❌ Erro inesperado: " << e.what() << endl;
+            
+                                }
+            
+                                break;
+            
                             }
-                        }
-                        
-                        if (telefoneLimpo.empty() || telefoneLimpo.length() < 10) {
-                            cout << "❌ Telefone inválido! Deve conter pelo menos 10 dígitos.\n";
-                        } else {
-                            telefone = telefoneLimpo;
-                            break;
-                        }
-                    }
-                    
-                    // Validação de email
-                    while (true) {
-                        cout << "Email: ";
-                        getline(cin, email);
-                        
-                        if (email.empty()) {
-                            cout << "❌ Email é obrigatório!\n";
-                        } else if (email.find('@') == string::npos || email.find('.') == string::npos) {
-                            cout << "❌ Email inválido! Deve conter '@' e '.'\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    cout << "\n--- ENDEREÇO ---" << endl;
-                    
-                    // Validação de rua
-                    while (true) {
-                        cout << "Rua: ";
-                        getline(cin, rua);
-                        
-                        if (rua.empty()) {
-                            cout << "❌ Rua é obrigatória!\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    // Validação de número
-                    while (true) {
-                        cout << "Número: ";
-                        cin >> numero;
-                        
-                        if (cin.fail() || numero <= 0) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            cout << "❌ Número inválido! Digite um valor positivo.\n";
-                        } else {
-                            cin.ignore();
-                            break;
-                        }
-                    }
-                    
-                    // Validação de bairro
-                    while (true) {
-                        cout << "Bairro: ";
-                        getline(cin, bairro);
-                        
-                        if (bairro.empty()) {
-                            cout << "❌ Bairro é obrigatório!\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    // Validação de cidade
-                    while (true) {
-                        cout << "Cidade: ";
-                        getline(cin, cidade);
-                        
-                        if (cidade.empty()) {
-                            cout << "❌ Cidade é obrigatória!\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    // Validação de estado
-                    while (true) {
-                        cout << "Estado (sigla): ";
-                        getline(cin, estado);
-                        
-                        // Converte para maiúsculas
-                        transform(estado.begin(), estado.end(), estado.begin(), ::toupper);
-                        
-                        if (estado.empty() || estado.length() != 2) {
-                            cout << "❌ Estado inválido! Digite a sigla (2 letras).\n";
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    try {
-                        Endereco* endereco = new Endereco(rua, numero, bairro, cidade, estado);
-                        Cliente* novoCliente = new Cliente(cpf, nome, idade, telefone, email, endereco);
-                        crudClientes.criar(novoCliente);
-                        cout << "✅ Cliente cadastrado com sucesso!" << endl;
-                        
-                    } catch (ExcecaoCustomizada& e) {
-                        cout << "❌ Erro: " << e.what() << endl;
-                        // Limpeza de memória em caso de erro
-                        // delete endereco; // Descomente se necessário
-                        // delete novoCliente; // Descomente se necessário
-                    } catch (bad_alloc& e) {
-                        cout << "❌ Erro de memória: Não foi possível cadastrar o cliente." << endl;
-                    } catch (exception& e) {
-                        cout << "❌ Erro inesperado: " << e.what() << endl;
-                    }
-                    break;
-                }
-                case 2:
-                    cout << "\n--- CLIENTES CADASTRADOS ---" << endl;
-                    crudClientes.exibirTodos();
-                    break;
-                case 3: {
-                    if (crudClientes.tamanho() == 0) {
-                        cout << "Nenhum cliente cadastrado." << endl;
-                        break;
-                    }
-                    
-                    cout << "\n--- HISTÓRICO DE CLIENTE ---" << endl;
-                    for (int i = 0; i < crudClientes.tamanho(); i++) {
-                        cout << "[" << i << "] " << crudClientes.ler(i)->getNome() << endl;
-                    }
-                    cout << "Escolha o cliente: ";
-                    int index;
-                    cin >> index;
-                    cin.ignore();
-                    
-                    if (index >= 0 && index < crudClientes.tamanho()) {
-                        Cliente* cliente = crudClientes.ler(index);
-                        cout << "\nHistórico de " << cliente->getNome() << ":" << endl;
-                        cout << "Total de compras: " << cliente->getTotalCompras() << endl;
-                    } else {
-                        cout << "Cliente inválido!" << endl;
-                    }
-                    break;
-                }
-                case 4:
-                    cout << "Voltando ao menu principal..." << endl;
-                    break;
-                default:
-                    throw runtime_error("Opção inválida! Digite um número entre 1 e 4.");
-            }
             
-        } catch (const exception& e) {
-            cout << "Erro: " << e.what() << endl;
+                            case 2:
             
-            // Limpa o estado de erro e o buffer
-            cin.clear();
-            cin.get();
-        }
-        
-    } while (opcaoClientes != 4);
+                                cout << "\n--- CLIENTES CADASTRADOS ---" << endl;
+            
+                                crudClientes.exibirTodos();
+            
+                                break;
+            
+                            case 3: {
+            
+                                if (crudClientes.tamanho() == 0) {
+            
+                                    cout << "Nenhum cliente cadastrado." << endl;
+            
+                                    break;
+            
+                                }
+            
+                                
+            
+                                cout << "\n--- HISTÓRICO DE CLIENTE ---" << endl;
+            
+                                for (int i = 0; i < crudClientes.tamanho(); i++) {
+            
+                                    cout << "[" << i << "] " << crudClientes.ler(i)->getNome() << endl;
+            
+                                }
+            
+                                cout << "Escolha o cliente: ";
+            
+                                int index;
+            
+                                cin >> index;
+            
+                                cin.ignore();
+            
+                                
+            
+                                if (index >= 0 && index < crudClientes.tamanho()) {
+            
+                                    Cliente* cliente = crudClientes.ler(index);
+            
+                                    cout << "\nHistórico de " << cliente->getNome() << ":" << endl;
+            
+                                    cout << "Total de compras: " << cliente->getTotalCompras() << endl;
+            
+                                } else {
+            
+                                    cout << "Cliente inválido!" << endl;
+            
+                                }
+            
+                                break;
+            
+                            }
+            
+                            case 4: {
+            
+                                if (crudClientes.tamanho() == 0) {
+            
+                                    cout << "Nenhum cliente cadastrado." << endl;
+            
+                                    break;
+            
+                                }
+            
+            
+            
+                                cout << "\n--- ATUALIZAR CLIENTE ---" << endl;
+            
+                                for (int i = 0; i < crudClientes.tamanho(); i++) {
+            
+                                    cout << "[" << i << "] " << crudClientes.ler(i)->getNome() << endl;
+            
+                                }
+            
+                                cout << "Escolha o índice do cliente: ";
+            
+                                int idx;
+            
+                                cin >> idx;
+            
+                                cin.ignore();
+            
+            
+            
+                                if (idx < 0 || idx >= crudClientes.tamanho()) {
+            
+                                    cout << "Índice inválido!" << endl;
+            
+                                    break;
+            
+                                }
+            
+            
+            
+                                Cliente* cliente = crudClientes.ler(idx);
+            
+                                int opcao;
+            
+                                do {
+            
+                                    menu_alterar_cliente();
+            
+                                    cin >> opcao;
+            
+                                    cin.ignore();
+            
+            
+            
+                                    switch (opcao) {
+            
+                                        case 1: {
+            
+                                            string nome;
+            
+                                            cout << "Novo nome: ";
+            
+                                            getline(cin, nome);
+            
+                                            cliente->setNome(nome);
+            
+                                            break;
+            
+                                        }
+            
+                                        case 2: {
+            
+                                            int idade;
+            
+                                            cout << "Nova idade: ";
+            
+                                            cin >> idade;
+            
+                                            cin.ignore();
+            
+                                            cliente->setIdade(idade);
+            
+                                            break;
+            
+                                        }
+            
+                                        case 3: {
+            
+                                            string telefone;
+            
+                                            cout << "Novo telefone: ";
+            
+                                            getline(cin, telefone);
+            
+                                            cliente->setTelefone(telefone);
+            
+                                            break;
+            
+                                        }
+            
+                                        case 4: {
+            
+                                            string email;
+            
+                                            cout << "Novo email: ";
+            
+                                            getline(cin, email);
+            
+                                            cliente->setEmail(email);
+            
+                                            break;
+            
+                                        }
+            
+                                        case 5: {
+            
+                                            string rua, bairro, cidade, estado;
+            
+                                            int numero;
+            
+                                            cout << "\n--- NOVO ENDEREÇO ---" << endl;
+            
+                                            cout << "Rua: ";
+            
+                                            getline(cin, rua);
+            
+                                            cout << "Número: ";
+            
+                                            cin >> numero;
+            
+                                            cin.ignore();
+            
+                                            cout << "Bairro: ";
+            
+                                            getline(cin, bairro);
+            
+                                            cout << "Cidade: ";
+            
+                                            getline(cin, cidade);
+            
+                                            cout << "Estado: ";
+            
+                                            getline(cin, estado);
+            
+                                            cliente->getEndereco()->setRua(rua);
+            
+                                            cliente->getEndereco()->setNumero(numero);
+            
+                                            cliente->getEndereco()->setBairro(bairro);
+            
+                                            cliente->getEndereco()->setCidade(cidade);
+            
+                                            cliente->getEndereco()->setEstado(estado);
+            
+                                            break;
+            
+                                        }
+            
+                                        case 0:
+            
+                                            cout << "Voltando ao menu de clientes..." << endl;
+            
+                                            break;
+            
+                                        default:
+            
+                                            cout << "Opção inválida!" << endl;
+            
+                                    }
+            
+                                } while (opcao != 0);
+            
+                                break;
+            
+                            }
+            
+                            case 5:
+            
+                                cout << "Voltando ao menu principal..." << endl;
+            
+                                break;
+            
+                            default:
+            
+                                throw runtime_error("Opção inválida! Digite um número entre 1 e 5.");
+            
+                        }
+            
+                        
+            
+                    } catch (const exception& e) {
+            
+                        cout << "Erro: " << e.what() << endl;
+            
+                        
+            
+                        // Limpa o estado de erro e o buffer
+            
+                        cin.clear();
+            
+                        cin.get();
+            
+                    }
+            
+                    
+            
+                } while (opcaoClientes != 5);
 }
 
 void gerenciarFuncionarios() {
@@ -509,50 +902,102 @@ void gerenciarFuncionarios() {
                         break;
                     }
 
-                    // Ler novos dados
-                    string cpf, nome, telefone, email, rua, bairro, cidade, estado, tema, nomeExibicao;
-                    int idade, numero, codigo;
-                    float salario;
+                    Funcionario* funcionario = crudFuncionarios.ler(idx);
+                    int opcao;
+                    do {
+                        menu_alterar_funcionario();
+                        cin >> opcao;
+                        cin.ignore();
 
-                    cout << "CPF: ";
-                    getline(cin, cpf);
-                    cout << "Nome: ";
-                    getline(cin, nome);
-                    cout << "Idade: ";
-                    cin >> idade;
-                    cin.ignore();
-                    cout << "Telefone: ";
-                    getline(cin, telefone);
-                    cout << "Email: ";
-                    getline(cin, email);
-
-                    cout << "\n--- ENDEREÇO ---" << endl;
-                    cout << "Rua: ";
-                    getline(cin, rua);
-                    cout << "Número: ";
-                    cin >> numero;
-                    cin.ignore();
-                    cout << "Bairro: ";
-                    getline(cin, bairro);
-                    cout << "Cidade: ";
-                    getline(cin, cidade);
-                    cout << "Estado: ";
-                    getline(cin, estado);
-
-                    cout << "Código do funcionário: ";
-                    cin >> codigo;
-                    cout << "Salário: R$ ";
-                    cin >> salario;
-                    cin.ignore();
-
-                    try {
-                        Endereco* endereco = new Endereco(rua, numero, bairro, cidade, estado);
-                        Funcionario* atualizado = new Funcionario(cpf, nome, idade, telefone, email, endereco, codigo, salario);
-                        crudFuncionarios.atualizar(idx, atualizado);
-                        cout << "Funcionário atualizado com sucesso!" << endl;
-                    } catch (ExcecaoCustomizada& e) {
-                        cout << "Erro: " << e.what() << endl;
-                    }
+                        switch (opcao) {
+                            case 1: {
+                                string nome;
+                                cout << "Novo nome: ";
+                                getline(cin, nome);
+                                funcionario->setNome(nome);
+                                break;
+                            }
+                            case 2: {
+                                int idade;
+                                cout << "Nova idade: ";
+                                cin >> idade;
+                                cin.ignore();
+                                funcionario->setIdade(idade);
+                                break;
+                            }
+                            case 3: {
+                                string telefone;
+                                cout << "Novo telefone: ";
+                                getline(cin, telefone);
+                                funcionario->setTelefone(telefone);
+                                break;
+                            }
+                            case 4: {
+                                string email;
+                                cout << "Novo email: ";
+                                getline(cin, email);
+                                funcionario->setEmail(email);
+                                break;
+                            }
+                            case 5: {
+                                string rua, bairro, cidade, estado;
+                                int numero;
+                                cout << "\n--- NOVO ENDEREÇO ---" << endl;
+                                cout << "Rua: ";
+                                getline(cin, rua);
+                                cout << "Número: ";
+                                cin >> numero;
+                                cin.ignore();
+                                cout << "Bairro: ";
+                                getline(cin, bairro);
+                                cout << "Cidade: ";
+                                getline(cin, cidade);
+                                cout << "Estado: ";
+                                getline(cin, estado);
+                                funcionario->getEndereco()->setRua(rua);
+                                funcionario->getEndereco()->setNumero(numero);
+                                funcionario->getEndereco()->setBairro(bairro);
+                                funcionario->getEndereco()->setCidade(cidade);
+                                funcionario->getEndereco()->setEstado(estado);
+                                break;
+                            }
+                            case 6: {
+                                float salario;
+                                cout << "Novo salário: R$ ";
+                                cin >> salario;
+                                cin.ignore();
+                                funcionario->setSalario(salario);
+                                break;
+                            }
+                            case 7: {
+                                int codigo;
+                                cout << "Novo código: ";
+                                cin >> codigo;
+                                cin.ignore();
+                                funcionario->setCodigo(codigo);
+                                break;
+                            }
+                            case 8: {
+                                string tema;
+                                cout << "Novo tema: ";
+                                getline(cin, tema);
+                                funcionario->setTema(tema);
+                                break;
+                            }
+                            case 9: {
+                                string nomeExibicao;
+                                cout << "Novo nome de exibição: ";
+                                getline(cin, nomeExibicao);
+                                funcionario->setNomeExibicao(nomeExibicao);
+                                break;
+                            }
+                            case 0:
+                                cout << "Voltando ao menu de funcionários..." << endl;
+                                break;
+                            default:
+                                cout << "Opção inválida!" << endl;
+                        }
+                    } while (opcao != 0);
                     break;
                 }
                 case 4: {
@@ -626,6 +1071,42 @@ void gerenciarVendas() {
                     break;
                 }
                 
+                if (crudFuncionarios.tamanho() == 0) {
+                    cout << "Nenhum funcionário cadastrado. Cadastre um funcionário primeiro." << endl;
+                    break;
+                }
+
+                vector<Vendedor*> vendedores;
+                for (int i = 0; i < crudFuncionarios.tamanho(); i++) {
+                    Funcionario* f = crudFuncionarios.ler(i);
+                    Vendedor* v = dynamic_cast<Vendedor*>(f);
+                    if (v) {
+                        vendedores.push_back(v);
+                    }
+                }
+
+                if (vendedores.empty()) {
+                    cout << "Nenhum vendedor cadastrado. Cadastre um vendedor primeiro." << endl;
+                    break;
+                }
+
+                cout << "\n--- SELECIONAR VENDEDOR ---" << endl;
+                for (int i = 0; i < static_cast<int>(vendedores.size()); i++) {
+                    cout << "[" << i << "] " << vendedores[i]->getNome() << endl;
+                }
+                cout << "Escolha o vendedor: ";
+                int indexVendedor;
+                cin >> indexVendedor;
+                cin.ignore();
+
+                if (indexVendedor < 0 || indexVendedor >= static_cast<int>(vendedores.size())) {
+                    cout << "Vendedor inválido!" << endl;
+                    break;
+                }
+
+                Vendedor* vendedorSelecionado = vendedores[indexVendedor];
+
+
                 cout << "\n--- SELECIONAR CLIENTE ---" << endl;
                 for (int i = 0; i < crudClientes.tamanho(); i++) {
                     cout << "[" << i << "] " << crudClientes.ler(i)->getNome() << endl;
@@ -656,7 +1137,18 @@ void gerenciarVendas() {
                     
                     if (indexCarro >= 0 && indexCarro < concessionaria->getTamanhoEstoque()) {
                         Carro* carro = concessionaria->getCarroEstoque(indexCarro);
-                        if (carro->estaDisponivel()) {
+
+                        bool carroJaAdicionado = false;
+                        for (Carro* c : carrosVenda) {
+                            if (c == carro) {
+                                carroJaAdicionado = true;
+                                break;
+                            }
+                        }
+
+                        if (carroJaAdicionado) {
+                            cout << "❌ Este carro já foi adicionado à venda." << endl;
+                        } else if (carro->estaDisponivel()) {
                             carrosVenda.push_back(carro);
                             indicesEstoque.push_back(indexCarro);
                             cout << "Carro adicionado à venda." << endl;
@@ -682,34 +1174,50 @@ void gerenciarVendas() {
                 getline(cin, metodoPagamento);
                 
                 try {
-                    Venda* venda = new Venda(cliente, vendedor1, carrosVenda, metodoPagamento);
+                    Venda* venda = new Venda(cliente, vendedorSelecionado, carrosVenda, metodoPagamento);
                     cliente->adicionarVenda(venda);
                     cout << "Venda registrada! ID: " << venda->getId() << endl;
                     
                     venda->finalizarVenda();
-                    float comissaoValor = vendedor1->calcularComissao(venda->getValorTotal());
+                    float comissaoValor = vendedorSelecionado->calcularComissao(venda->getValorTotal());
                     cout << "Comissão do vendedor: R$ " << comissaoValor << endl;
                     
                     
                     crudVendas.criar(venda);
+                    
+                    // Itera sobre os índices de trás para frente para evitar problemas ao remover
+                    float comissaoPorCarro = comissaoValor / carrosVenda.size();
+                    for (int i = indicesEstoque.size() - 1; i >= 0; i--) {
+                        int index = indicesEstoque[i];
+                        concessionaria->venderCarro(index, comissaoPorCarro);
+                    }
                     
                     cout << "Venda concluída com sucesso!" << endl;
                     
                 } catch (ExcecaoCustomizada& e) {
                     cout << "Erro na venda: " << e.what() << endl;
                 }
-
-                    // Itera sobre os índices de trás para frente para evitar problemas ao remover
-                    for (int i = indicesEstoque.size() - 1; i >= 0; i--) {
-                        int index = indicesEstoque[i];
-                        concessionaria->venderCarro(index);
-                    }
-
                 break;
             }
             case 2:
                 cout << "\n--- HISTÓRICO DE VENDAS ---" << endl;
-                cout << "Total de vendas realizadas: " << crudVendas.tamanho() << endl;
+                if (crudVendas.tamanho() == 0) {
+                    cout << "Nenhuma venda registrada." << endl;
+                } else {
+                    for (int i = 0; i < crudVendas.tamanho(); i++) {
+                        Venda* venda = crudVendas.ler(i);
+                        cout << "--- Venda " << venda->getId() << " ---" << endl;
+                        cout << "Data: " << venda->getData() << endl;
+                        cout << "Cliente: " << venda->getCliente()->getNome() << endl;
+                        cout << "Carros:" << endl;
+                        vector<Carro*> carros = venda->getCarros();
+                        for (Carro* carro : carros) {
+                            cout << "  - Modelo: " << carro->getModelo() << endl;
+                        }
+                        cout << "Valor Total: R$ " << venda->getValorTotal() << endl;
+                        cout << "--------------------" << endl;
+                    }
+                }
                 break;
             case 3:
                 cout << "Voltando ao menu principal..." << endl;
