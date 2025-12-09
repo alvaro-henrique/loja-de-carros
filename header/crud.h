@@ -23,7 +23,7 @@ public:
         registros.push_back(registro);
     }
     
-    T* ler(int index) {
+    T* ler(int index) const {
         if (index < 0 || index >= (int)registros.size()) {
             throw ExcecaoIndiceInvalido(index, registros.size());
         }
@@ -50,11 +50,18 @@ public:
         registros.erase(registros.begin() + index);
     }
     
-    int tamanho() {
+    /// Retorna a quantidade de registros
+    int tamanho() const {
         return registros.size();
     }
     
-    void exibirTodos() {
+    /// Retorna todos os registros
+    std::vector<T*> lerTodos() const {
+        return registros;
+    }
+    
+    /// Exibe todos os registros
+    void exibirTodos() const {
         for (int i = 0; i < (int)registros.size(); i++) {
             cout << "[" << i << "] ";
             registros[i]->exibirInformacoes();

@@ -19,7 +19,7 @@ using namespace std;
  */
 void validarCPFComDuplicata(string& cpf, const string& tipo) {
     while (true) {
-        cout << "CPF (apenas números): ";
+        cout << "🔢 CPF (apenas números): ";
         getline(cin, cpf);
         
         // Remove caracteres não numéricos
@@ -54,7 +54,7 @@ void validarCPFComDuplicata(string& cpf, const string& tipo) {
  */
 void validarTelefoneComDuplicata(string& telefone, const string& tipo) {
     while (true) {
-        cout << "Telefone: ";
+        cout << "📱 Telefone: ";
         getline(cin, telefone);
         
         // Remove caracteres não numéricos
@@ -95,7 +95,7 @@ void validarTelefoneComDuplicata(string& telefone, const string& tipo) {
  */
 void validarEmailComDuplicata(string& email, const string& tipo) {
     while (true) {
-        cout << "Email: ";
+        cout << "📧 Email: ";
         getline(cin, email);
         
         if (email.empty() || email.find('@') == string::npos || email.find('.') == string::npos) {
@@ -126,7 +126,7 @@ void validarEmailComDuplicata(string& email, const string& tipo) {
  */
 void validarNomeCompleto(string& nome) {
     while (true) {
-        cout << "Nome: ";
+        cout << "👤 Nome: ";
         getline(cin, nome);
         
         if (nome.empty()) {
@@ -159,7 +159,7 @@ void validarNomeCompleto(string& nome) {
  */
 void validarIdade(int& idade) {
     while (true) {
-        cout << "Idade: ";
+        cout << "🎂 Idade: ";
         cin >> idade;
         
         if (cin.fail()) {
@@ -184,7 +184,7 @@ void validarIdade(int& idade) {
  */
 void validarCodigoFuncionario(int& codigo) {
     while (true) {
-        cout << "Código do funcionário: ";
+        cout << "🔢 Código do funcionário: ";
         cin >> codigo;
         
         if (cin.fail()) {
@@ -209,7 +209,7 @@ void validarCodigoFuncionario(int& codigo) {
  */
 void validarSalario(float& salario) {
     while (true) {
-        cout << "Salário: R$ ";
+        cout << "💵 Salário: R$ ";
         cin >> salario;
         
         if (cin.fail()) {
@@ -235,7 +235,7 @@ void validarSalario(float& salario) {
 void validarEnderecoCompleto(string& rua, int& numero, string& bairro, string& cidade, string& estado) {
     // Validação de rua
     while (true) {
-        cout << "Rua: ";
+        cout << "🏠 Rua: ";
         getline(cin, rua);
         
         if (rua.empty()) {
@@ -247,7 +247,7 @@ void validarEnderecoCompleto(string& rua, int& numero, string& bairro, string& c
     
     // Validação de número
     while (true) {
-        cout << "Número: ";
+        cout << "🔢 Número: ";
         cin >> numero;
         
         if (cin.fail() || numero <= 0) {
@@ -262,7 +262,7 @@ void validarEnderecoCompleto(string& rua, int& numero, string& bairro, string& c
     
     // Validação de bairro
     while (true) {
-        cout << "Bairro: ";
+        cout << "📍 Bairro: ";
         getline(cin, bairro);
         
         if (bairro.empty()) {
@@ -274,7 +274,7 @@ void validarEnderecoCompleto(string& rua, int& numero, string& bairro, string& c
     
     // Validação de cidade
     while (true) {
-        cout << "Cidade: ";
+        cout << "🌆 Cidade: ";
         getline(cin, cidade);
         
         if (cidade.empty()) {
@@ -286,7 +286,7 @@ void validarEnderecoCompleto(string& rua, int& numero, string& bairro, string& c
     
     // Validação de estado
     while (true) {
-        cout << "Estado (sigla): ";
+        cout << "🏷️ Estado (sigla): ";
         getline(cin, estado);
         
         // Converte para maiúsculas
@@ -305,7 +305,7 @@ void validarEnderecoCompleto(string& rua, int& numero, string& bairro, string& c
  */
 void validarModelo(string& modelo) {
     while (true) {
-        cout << "Modelo: ";
+        cout << "🚗 Modelo: ";
         getline(cin, modelo);
         
         if (modelo.empty()) {
@@ -327,7 +327,7 @@ void validarModelo(string& modelo) {
  */
 void validarCor(string& cor) {
     while (true) {
-        cout << "Cor: ";
+        cout << "🎨 Cor: ";
         getline(cin, cor);
         
         if (cor.empty()) {
@@ -349,7 +349,7 @@ void validarCor(string& cor) {
  */
 void validarMarca(string& marca) {
     while (true) {
-        cout << "Marca: ";
+        cout << "🏷️ Marca: ";
         getline(cin, marca);
         
         if (marca.empty()) {
@@ -371,7 +371,7 @@ void validarMarca(string& marca) {
  */
 void validarPlacaComDuplicata(string& placa) {
     while (true) {
-        cout << "Placa (7 caracteres alfanuméricos): ";
+        cout << "🔖 Placa (7 caracteres alfanuméricos): ";
         getline(cin, placa);
         
         // Valida formato (exatamente 7 caracteres alfanuméricos)

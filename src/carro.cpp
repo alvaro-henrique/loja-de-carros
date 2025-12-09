@@ -7,27 +7,27 @@ using namespace std;
 
 
 // Construtor
-Carro::Carro(string placa, string modelo, string cor, string marca, int ano, 
-             float precoCompra, float precoVenda, string status)
+Carro::Carro(const string& placa, const string& modelo, const string& cor, const string& marca, int ano, 
+             float precoCompra, float precoVenda, const string& status)
     : placa(placa), modelo(modelo), cor(cor), marca(marca), ano(ano), 
       precoCompra(precoCompra), precoVenda(precoVenda), status(status) {
 }
 
 // Getters
 string Carro::getPlaca() const { return placa; }
-string Carro::getModelo() { return modelo; }
-string Carro::getCor() { return cor; }
-string Carro::getMarca() { return marca; }
-int Carro::getAno() { return ano; }
-float Carro::getPrecoCompra() { return precoCompra; }
-float Carro::getPrecoVenda() { return precoVenda; }
-string Carro::getStatus() { return status; }
+string Carro::getModelo() const { return modelo; }
+string Carro::getCor() const { return cor; }
+string Carro::getMarca() const { return marca; }
+int Carro::getAno() const { return ano; }
+float Carro::getPrecoCompra() const { return precoCompra; }
+float Carro::getPrecoVenda() const { return precoVenda; }
+string Carro::getStatus() const { return status; }
 
 // Setters
-void Carro::setPlaca(string placa) { this->placa = placa; }
-void Carro::setModelo(string modelo) { this->modelo = modelo; }
-void Carro::setCor(string cor) { this->cor = cor; }
-void Carro::setMarca(string marca) { this->marca = marca; }
+void Carro::setPlaca(const string& placa) { this->placa = placa; }
+void Carro::setModelo(const string& modelo) { this->modelo = modelo; }
+void Carro::setCor(const string& cor) { this->cor = cor; }
+void Carro::setMarca(const string& marca) { this->marca = marca; }
 
 void Carro::setAno(int ano) { 
     if (ano < 1900 || ano > 2030) throw ExcecaoAnoInvalido(ano);
@@ -44,10 +44,10 @@ void Carro::setPrecoVenda(float precoVenda) {
     this->precoVenda = precoVenda; 
 }
 
-void Carro::setStatus(string status) { this->status = status; }
+void Carro::setStatus(const string& status) { this->status = status; }
 
 // Outros Métodos
-bool Carro::estaDisponivel() {
+bool Carro::estaDisponivel() const {
     return status == "Disponível";
 }
 

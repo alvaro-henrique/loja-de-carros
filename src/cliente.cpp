@@ -35,7 +35,7 @@ bool Cliente::validarEmail(const string& email) {
 }
 
 // Construtor
-Cliente::Cliente(string CPF, string nome, int idade, string telefone, string email, Endereco* endereco)
+Cliente::Cliente(const string& CPF, const string& nome, int idade, const string& telefone, const string& email, Endereco* endereco)
     : Pessoa(CPF, nome, idade, telefone, email, endereco) {
     
     // Validações adicionais no construtor
@@ -58,37 +58,37 @@ Cliente::~Cliente() {
 }
 
 // Getters
-vector<Venda*> Cliente::getHistoricoCompras() { 
+vector<Venda*> Cliente::getHistoricoCompras() const { 
     return historicoCompras; 
 }
 
-int Cliente::getTotalCompras() {
+int Cliente::getTotalCompras() const {
     return historicoCompras.size();
 }
 
 // Setters com Validação
-void Cliente::setNome(string nome) {
+void Cliente::setNome(const string& nome) {
     if (!validarNome(nome)) {
         throw ExcecaoNomeInvalido();
     }
     Pessoa::setNome(nome);
 }
 
-void Cliente::setTelefone(string telefone) {
+void Cliente::setTelefone(const string& telefone) {
     if (!validarTelefone(telefone)) {
         throw ExcecaoTelefoneInvalido(telefone);
     }
     Pessoa::setTelefone(telefone);
 }
 
-void Cliente::setEmail(string email) {
+void Cliente::setEmail(const string& email) {
     if (!validarEmail(email)) {
         throw ExcecaoEmailInvalido(email);
     }
     Pessoa::setEmail(email);
 }
 
-void Cliente::setCPF(string cpf) {
+void Cliente::setCPF(const string& cpf) {
     Pessoa::setCPF(cpf);  // Usa validação de CPF da classe Pessoa
 }
 

@@ -3,92 +3,60 @@
 
 #include "carro.h"
 #include "crud.h"
+#include "excecoes.h"
 #include <vector>
 #include <iostream>
-#include "formatacaoreal.h" // <-- INCLUI A FUNÇÃO DE FORMATAR
+#include "formatacaoreal.h"
 
 using namespace std;
 
+/**
+ * @class Concessionaria
+ * @brief Representa a concessionária de carros
+ * @details Gerencia estoque de carros, caixa e transações
+ */
 class Concessionaria {
 private:
-    string nome;
-    string cnpj;
-    float caixa;  // Dinheiro em caixa
-    CRUD<Carro> estoque;
+    std::string nome;
+    std::string cnpj;
+    float caixa;  ///< Dinheiro em caixa
+    CRUD<Carro> estoque;  ///< Estoque de carros disponíveis
 
 public:
-    Concessionaria(string nome, string cnpj, float caixaInicial)
+    /// Construtor
+    Concessionaria(const std::string& nome, const std::string& cnpj, float caixaInicial)
         : nome(nome), cnpj(cnpj), caixa(caixaInicial) {}
     
-    string getNome() { return nome; }
-    string getCNPJ() { return cnpj; }
-    float getCaixa() { return caixa; }
+    /// @name Getters
+    /// @{
+    /**@brief Retorna o nome da concessionária*/
+    std::string getNome() const { return nome; }
+    /**@brief Retorna o CNPJ da concessionária*/
+    std::string getCNPJ() const { return cnpj; }
+    /**@brief Retorna o saldo do caixa*/
+    float getCaixa() const { return caixa; }
+    /// @}
     
-    void comprarCarro(Carro* carro) {
-        if (caixa >= carro->getPrecoCompra()) {
-            estoque.criar(carro);
-            caixa -= carro->getPrecoCompra();
-            carro->comprar();
-        } else {
-            throw ExcecaoCaixaInsuficiente(caixa, carro->getPrecoCompra());
-        }
-    }
+    /// Compra um carro para o estoque
+    void comprarCarro(Carro* carro);
     
-    void venderCarro(int indexEstoque) {
-        Carro* carro = estoque.ler(indexEstoque);
-        if (carro->estaDisponivel()) {
-            caixa += carro->getPrecoVenda();
-            carro->vender();
-            cout << "Carro vendido! Lucro: " << formatarReal(carro->calcularLucro()) 
-                 << " | Caixa atual: " << formatarReal(caixa) << endl;
-            estoque.remover(indexEstoque);
-        } else {
-            throw ExcecaoCarroNaoDisponivel(carro->getPlaca(), carro->getStatus());
-        }
-    }
+    /// Vende um carro do estoque
+    void venderCarro(int indexEstoque);
     
-    Carro* getCarroEstoque(int index) {
-        return estoque.ler(index);
-    }
+    /// Retorna um carro específico do estoque
+    Carro* getCarroEstoque(int index);
     
-    int getTamanhoEstoque() {
-        return estoque.tamanho();
-    }
+    /// Retorna o tamanho do estoque
+    int getTamanhoEstoque() const;
     
-    vector<Carro*> getEstoque() {
-        return estoque.lerTodos();
-    }
+    /// Retorna todos os carros do estoque
+    std::vector<Carro*> getEstoque() const;
     
-    void exibirEstoque() {
-        cout << "=== ESTOQUE DA CONCESSIONÁRIA ===" << endl;
-        cout << "Nome: " << nome << " | CNPJ: " << cnpj << " | Caixa: " << formatarReal(caixa) << endl;
-        for (int i = 0; i < estoque.tamanho(); i++) {
-            cout << "[" << i << "] ";
-            estoque.ler(i)->exibirCarro();
-            cout << "\n---\n";
-        }
-    }
+    /// Exibe o estoque completo
+    void exibirEstoque() const;
     
-    // --- MÉTODO ATUALIZADO ---
-    void exibirBalanco() {
-        float totalInvestido = 0;
-        int carrosDisponiveis = 0;
-        
-        for (int i = 0; i < estoque.tamanho(); i++) {
-            Carro* carro = estoque.ler(i);
-            totalInvestido += carro->getPrecoCompra();
-            if (carro->estaDisponivel()) {
-                carrosDisponiveis++;
-            }
-        }
-        
-        cout << "=== BALANÇO ===" << endl;
-        
-        cout << "Caixa: " << formatarReal(caixa) << endl;
-        cout << "Total investido em estoque: " << formatarReal(totalInvestido) << endl;
-        
-        cout << "Carros disponíveis: " << carrosDisponiveis << "/" << estoque.tamanho() << endl;
-    }
+    /// Exibe o balanço financeiro
+    void exibirBalanco() const;
 };
 
 #endif

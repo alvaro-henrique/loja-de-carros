@@ -30,8 +30,8 @@ bool Funcionario::validarTelefone(const string& telefone) {
 }
 
 // Construtor
-Funcionario::Funcionario(string CPF, string nome, int idade, string telefone, string email, 
-            Endereco* endereco, int codigo, float salario, string tema, string nomeExibicao)
+Funcionario::Funcionario(const string& CPF, const string& nome, int idade, const string& telefone, const string& email, 
+            Endereco* endereco, int codigo, float salario, const string& tema, const string& nomeExibicao)
     : Pessoa(CPF, nome, idade, telefone, email, endereco), codigo(codigo), salario(salario),
     tema(tema), nomeExibicao(nomeExibicao) {
     
@@ -59,11 +59,11 @@ Funcionario::~Funcionario() {
 }
 
 // Getters
-int Funcionario::getCodigo() { return codigo; }
-string Funcionario::getDataContratacao() { return dataContratacao; }
-float Funcionario::getSalario() { return salario; }
-string Funcionario::getTema() { return tema; }                    
-string Funcionario::getNomeExibicao() { return nomeExibicao; }    
+int Funcionario::getCodigo() const { return codigo; }
+string Funcionario::getDataContratacao() const { return dataContratacao; }
+float Funcionario::getSalario() const { return salario; }
+string Funcionario::getTema() const { return tema; }                    
+string Funcionario::getNomeExibicao() const { return nomeExibicao; }    
 
 // Setters
 void Funcionario::setCodigo(int codigo) { this->codigo = codigo; }
@@ -73,29 +73,29 @@ void Funcionario::setSalario(float salario) {
     this->salario = salario; 
 }
 
-void Funcionario::setTema(string tema) {     
+void Funcionario::setTema(const string& tema) {     
     this->tema = tema;
 }
 
-void Funcionario::setNomeExibicao(string nomeExibicao) {  
+void Funcionario::setNomeExibicao(const string& nomeExibicao) {  
     this->nomeExibicao = nomeExibicao;
 }
 
-void Funcionario::setNome(string nome) {
+void Funcionario::setNome(const string& nome) {
     if (!validarNome(nome)) {
         throw ExcecaoNomeInvalido();
     }
     Pessoa::setNome(nome);
 }
 
-void Funcionario::setTelefone(string telefone) {
+void Funcionario::setTelefone(const string& telefone) {
     if (!validarTelefone(telefone)) {
         throw ExcecaoTelefoneInvalido(telefone);
     }
     Pessoa::setTelefone(telefone);
 }
 
-void Funcionario::setCPF(string cpf) {
+void Funcionario::setCPF(const string& cpf) {
     Pessoa::setCPF(cpf);  // Usa validação de CPF da classe Pessoa
 }
 
@@ -103,7 +103,7 @@ void Funcionario::setIdade(int idade) {
     Pessoa::setIdade(idade);  // Usa validação de idade da classe Pessoa
 }
 
-float Funcionario::calcularSalario() {
+float Funcionario::calcularSalario() const {
     // Implementação padrão (como no original)
     return salario;
 }

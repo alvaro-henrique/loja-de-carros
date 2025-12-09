@@ -4,7 +4,11 @@
 #include "pessoa.h"
 #include <string>
 
-
+/**
+ * @class Funcionario
+ * @brief Representa um funcionário da concessionária
+ * @details Herda de Pessoa e adiciona informações trabalhistas
+ */
 class Funcionario : public Pessoa {
 protected:
     // Atributos
@@ -19,33 +23,44 @@ protected:
     bool validarTelefone(const std::string& telefone);
 
 public:
-    // Construtor
-    Funcionario(std::string CPF, std::string nome, int idade, std::string telefone, 
-                std::string email, Endereco* endereco, int codigo, float salario,
-                std::string tema = "claro", std::string nomeExibicao = "Funcionario");
+    /// Construtor
+    Funcionario(const std::string& CPF, const std::string& nome, int idade, 
+                const std::string& telefone, const std::string& email, Endereco* endereco, 
+                int codigo, float salario, const std::string& tema = "claro", 
+                const std::string& nomeExibicao = "Funcionario");
     
-    // Destrutor
+    /// Destrutor
     virtual ~Funcionario();
     
-    // Getters
-    int getCodigo();
-    std::string getDataContratacao();
-    float getSalario();
-    std::string getTema();
-    std::string getNomeExibicao();
+    /// @name Getters
+    /// @{
+    /**@brief Retorna o código do funcionário*/
+    int getCodigo() const;
+    /**@brief Retorna a data de contratação*/
+    std::string getDataContratacao() const;
+    /**@brief Retorna o salário*/
+    float getSalario() const;
+    /**@brief Retorna o tema da interface*/
+    std::string getTema() const;
+    /**@brief Retorna o nome de exibição*/
+    std::string getNomeExibicao() const;
+    /// @}
     
-    // Setters
+    /// @name Setters
+    /// @{
     void setCodigo(int codigo);
     void setSalario(float salario);
-    void setTema(std::string tema);
-    void setNomeExibicao(std::string nomeExibicao);
-    void setNome(std::string nome);
-    void setTelefone(std::string telefone);
-    void setCPF(std::string cpf);
+    void setTema(const std::string& tema);
+    void setNomeExibicao(const std::string& nomeExibicao);
+    void setNome(const std::string& nome);
+    void setTelefone(const std::string& telefone);
+    void setCPF(const std::string& cpf);
     void setIdade(int idade);
+    /// @}
     
-    // virtuais
-    virtual float calcularSalario();
+    /// Calcula o salário do funcionário
+    virtual float calcularSalario() const;
+    /// Exibe informações do funcionário
     void exibirInformacoes() override;
 };
 

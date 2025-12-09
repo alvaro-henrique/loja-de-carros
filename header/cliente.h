@@ -7,6 +7,11 @@
 
 class Venda; 
 
+/**
+ * @class Cliente
+ * @brief Representa um cliente da concessionária
+ * @details Herda de Pessoa e adiciona histórico de compras
+ */
 class Cliente : public Pessoa {
 private:
     std::vector<Venda*> historicoCompras;
@@ -17,27 +22,34 @@ private:
     bool validarEmail(const std::string& email);
 
 public:
-    // Construtor
-    Cliente(std::string CPF, std::string nome, int idade, std::string telefone, 
-            std::string email, Endereco* endereco);
+    /// Construtor
+    Cliente(const std::string& CPF, const std::string& nome, int idade, 
+            const std::string& telefone, const std::string& email, Endereco* endereco);
     
-    // Destrutor
+    /// Destrutor
     ~Cliente();
     
-    // Getters
-    std::vector<Venda*> getHistoricoCompras();
-    int getTotalCompras();
+    /// @name Getters
+    /// @{
+    /**@brief Retorna histórico de compras*/
+    std::vector<Venda*> getHistoricoCompras() const;
+    /**@brief Retorna total de compras realizadas*/
+    int getTotalCompras() const;
+    /// @}
     
-    // Setters com Validação
-    void setNome(std::string nome);
-    void setTelefone(std::string telefone);
-    void setEmail(std::string email);
-    void setCPF(std::string cpf);
+    /// @name Setters com Validação
+    /// @{
+    void setNome(const std::string& nome);
+    void setTelefone(const std::string& telefone);
+    void setEmail(const std::string& email);
+    void setCPF(const std::string& cpf);
     void setIdade(int idade);
+    /// @}
     
-    // Outros Métodos
+    /// Adiciona uma venda ao histórico
     void adicionarVenda(Venda* venda);
     
+    /// Exibe informações do cliente
     void exibirInformacoes() override;
 };
 

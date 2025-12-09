@@ -9,7 +9,7 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic -Iheader
 
 # Diretórios
 SRC_DIR = src
-OBJ_DIR = obj
+OBJ_DIR = /tmp/obj
 
 # Lista de todos os arquivos .cpp e correspondentes .o
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
