@@ -237,11 +237,6 @@ bool ExportarDataBase::importarFuncionariosCSV(CRUD<Funcionario>& crudFuncionari
         int linhaNum = 0;
         int funcionariosImportados = 0;
         
-        // Limpa os funcionários existentes
-        while (crudFuncionarios.tamanho() > 0) {
-            crudFuncionarios.remover(0);
-        }
-        
         while (getline(arquivo, linha)) {
             linhaNum++;
             

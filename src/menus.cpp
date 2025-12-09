@@ -31,15 +31,28 @@ void menuEstoque() {
 void menuClientes() {
     cout << "\n=== GERENCIAR CLIENTES ===" << endl;
     cout << "1. Cadastrar Cliente" << endl;
-    cout << "2. Listar Clientes" << endl;
-    cout << "3. Ver Histórico de Cliente" << endl;
-    cout << "4. Voltar" << endl;
+    cout << "2. Listar clientes" << endl;
+    cout << "3. Ver histórico de cliente" << endl;
+    cout << "4. Alterar Cliente" << endl;
+    cout << "5. Voltar" << endl;
+    cout << "Escolha uma opção: ";
+}
+
+void menu_alterar_cliente() {
+    cout << "\n--- ALTERAR CLIENTE ---" << endl;
+    cout << "1. Alterar Nome" << endl;
+    cout << "2. Alterar Idade" << endl;
+    cout << "3. Alterar Telefone" << endl;
+    cout << "4. Alterar Email" << endl;
+    cout << "5. Alterar Endereço" << endl;
+    cout << "0. Voltar" << endl;
     cout << "Escolha uma opção: ";
 }
 
 void menuFuncionarios() {
-    cout << "\n===== MENU DE FUNCIONÁRIOS =====\n";
-    cout << "1. Adicionar funcionário\n";
+    cout << "\n--- GERENCIAR FUNCIONÁRIOS ---" << endl;
+    cout << "1. Cadastrar funcionário" << endl;
+
     cout << "2. Listar funcionários\n";
     cout << "3. Atualizar funcionário\n";
     cout << "4. Remover funcionário\n";
@@ -55,8 +68,24 @@ void menuVendas() {
     cout << "Escolha uma opção: ";
 }
 
+void menu_alterar_funcionario() {
+    cout << "\n--- ALTERAR FUNCIONÁRIO ---" << endl;
+    cout << "1. Alterar Nome" << endl;
+    cout << "2. Alterar Idade" << endl;
+    cout << "3. Alterar Telefone" << endl;
+    cout << "4. Alterar Email" << endl;
+    cout << "5. Alterar Endereço" << endl;
+    cout << "6. Alterar Salário" << endl;
+    cout << "7. Alterar Código" << endl;
+    cout << "8. Alterar Tema" << endl;
+    cout << "9. Alterar Nome de Exibicao" << endl;
+    cout << "0. Voltar" << endl;
+    cout << "Escolha uma opção: ";
+}
+
 void menuPreferenciaUsuario() {
-    cout << "\n ==== PREFERENCIAS DO USUARIO ====" << endl;
+    // Menu para o usuário final
+    cout << "\n--- PREFERÊNCIAS DO USUÁRIO ---" << endl;
     cout << "1. Listar Preferencias" << endl;
     cout << "2. Alterar Tema" << endl;
     cout << "3. Altera Nome de Exibicao" << endl;
